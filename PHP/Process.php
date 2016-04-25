@@ -10,7 +10,9 @@ $strEmployeeName = mysql_real_escape_string($_POST['frmEmployee']);
 $strDepartmentName = mysql_real_escape_string($_POST['frmDepartment']);
 $strRoomNum = mysql_real_escape_string($_POST['frmRoom']);
 $strLocationName = mysql_real_escape_string($_POST['frmLocation']) . " " . $strRoomNum;
-$strNotes = mysql_real_escape_string(CleanUpNotes($_POST['frmNotes']));
+
+//Dustin - Removed because unnecessary
+// $strNotes = mysql_real_escape_string(CleanUpNotes($_POST['frmNotes']));
 $strTech = mysql_real_escape_string($_POST['frmTech']);
 
 //Dustin - Removed because we don't care what is installed
@@ -67,7 +69,7 @@ $iMemoryLine = -1;
 $iSerialNumber = -1;
 $iManucfacturer = "None";
 $iModel = "None";
-$iSystemType = "None";
+$iWindowsVersion = "None";
 $iJavaVersion = "None";
 $iOfficeMatch = "None";
 
@@ -154,11 +156,10 @@ if (file_exists($strTempFile))
 				// }
 							
 				//Lets get the name, SerialNumber, Manufacturer, Model, System Type
-				$iNameLine = Search_File("Machine Name:", $aMainLines);
-				$iSerialNumber = Search_File("SerialNumber", $aMainLines);
+				$iNameLine = Search_File("System Name:", $aMainLines);
+				$iSerialNumber = Search_File("Serial Number:", $aMainLines);
 				$iManucfacturer = Search_File("System Manufacturer:",$aMainLines);
 				$iModel = Search_File("System Model:",$aMainLines);
-				$iSystemType = Search_File("Operating System:", $aMainLines);
 				$iOfficeMatch = Search_File("Office Match:". $aMainLines);
 
 				unset($aMatches);
@@ -431,12 +432,17 @@ if (file_exists($strTempFile))
 
 				//Dustin - Old 
 				// DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strWebBrowser, $strIESecurityLevel, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strInstall, $strNotes);
-				DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strWebBrowser, $strIESecurityLevel, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strInstall, $strNotes);
+				DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $trModel, $strSerialNumber, $iMemoryLine, $iHardDriveLine, $iOfficeMatch, $iProcessorLine, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"]);
 				
 				
 
 				//Run the SQL Statement
-				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, "Yes", "Yes", "Yes", "Yes", $strWebBrowser, $strInstall, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strNotes, $strTech, "N/A", $aComputerLevel['Processor'], $aComputerLevel['HardDrive'], $aComputerLevel['Optical'], $aComputerLevel['RAM'], $aComputerLevel['Graphic'], $aComputerLevel['Display']);
+
+				//Dustin - Old
+				// SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, "Yes", "Yes", "Yes", "Yes", $strWebBrowser, $strInstall, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strNotes, $strTech, "N/A", $aComputerLevel['Processor'], $aComputerLevel['HardDrive'], $aComputerLevel['Optical'], $aComputerLevel['RAM'], $aComputerLevel['Graphic'], $aComputerLevel['Display']);
+				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $iManucfacturer, $iSerialNumber, $iModel, $iJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strTech, "N/A", $iProcessorLine, $iHardDrive, $iMemory);
+
+				
 			break;
 			
 			case 2: //This is for OS X
