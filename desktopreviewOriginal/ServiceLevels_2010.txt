@@ -1,0 +1,25 @@
+***Service Level***
+Processor => Core(TM)2,Pentium(R) 4,Pentium(R) D,Core(TM) i7,Pentium(R) Dual,Turion(tm) 64,AMD Phenom(tm),Intel Xeon,Atom(TM),Sempron(tm),Athlon(tm) 64,Athlon(tm) 64 Dual Core,Pentium(R) M,Turion(tm) X2,Turion(tm) 64 X2
+HardDrive => 40
+Optical => DVD,CD
+RAM => 950
+
+***7 Level***
+Processor => Core(TM)2,Pentium(R) D,Core(TM) i7,Pentium(R) Dual,Turion(tm) 64,AMD Phenom(tm),Intel Xeon,Athlon(tm) 64 Dual Core,Turion(tm)
+HardDrive => 40
+Optical => DVD
+RAM => 950
+Graphic => 128
+
+***Office 2013***
+Processor =>  Core(TM)2,Pentium(4) R,Pentium(R) D,Core(TM) i7,Pentium(R) Dual,Turion(tm) 64,AMD Phenom(tm),Intel Xeon,Atom(TM),Sempron(tm),Athlon(tm) 64,Athlon(tm) 64 Dual Core,Pentium(R) M,Turion(tm) X2,Turion(tm) 64 X2
+HardDrive => 2
+Optical => DVD,CD
+RAM => 256
+Display => 800 x 600
+
+***Mac 2009***
+Processor => PowerPC G4,PowerPC G5,Intel Core Duo,Core(TM) i7,Intel Core 2 Duo
+HardDrive => 40
+Optical => DVD,CD
+RAM => 950

@@ -1,0 +1,33 @@
+.MainForm
+{
+	width: 7.2in;
+	
+}
+
+.Border
+{
+	border: solid 1px #000;
+}
+
+.BoldTitle
+{
+	font-size:150%;
+	font-weight:bold;
+}
+.SmallTitle
+{
+	font-weight:bold;
+}
+
+.SmallTitleCenter
+{
+	font-weight:bold;
+	text-align:center;
+}
+.FormHeader
+{
+	font-weight:bold;
+	color:#000;
+	text-align:center;
+	border:1px solid #000;
+}
