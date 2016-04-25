@@ -69,6 +69,7 @@ $iManucfacturer = "None";
 $iModel = "None";
 $iSystemType = "None";
 $iJavaVersion = "None";
+$iOfficeMatch = "None";
 
 unset($aComputerLevel);
 unset($aServiceLevels);
@@ -158,6 +159,7 @@ if (file_exists($strTempFile))
 				$iManucfacturer = Search_File("System Manufacturer:",$aMainLines);
 				$iModel = Search_File("System Model:",$aMainLines);
 				$iSystemType = Search_File("Operating System:", $aMainLines);
+				$iOfficeMatch = Search_File("Office Match:". $aMainLines);
 
 				unset($aMatches);
 				preg_match("/System Name: (.*)/",$aMainLines[$iNameLine],$aMatches);

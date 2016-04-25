@@ -2,7 +2,7 @@
 //Lets Generate the Fancy Form
 //Dustin - Old function def, updated 4/13/2016
 // function DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strWebBrowser, $strIESecurityLevel, $SLA, $VSLA, $OSLA, $strInstall, $strNotes)
-function DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $SLA, $VSLA, $OSLA, $strInstall, $strNotes)
+function DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strModel, $strSerialNumber, $iMemory, $strHDD, $strOfficeMatch, $strJavaVersion, $SLA, $WinSLA, $OffSLA, $strInstall, $strNotes)
 {
 	echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
 	echo "<html xmlns=\"http://www.w3.org/1999/xhtml\">";
@@ -22,6 +22,13 @@ function DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $st
 	echo "<tr><td>Computer Name: " . $strComputerName . "</td><td>Location: " . $strLocationName . "</td></tr>";
 	echo "<tr><td class=\"FormHeader\" colspan=\"2\">AUDIT CHECKLIST</td></tr>";
 	echo "<tr><td>Domain: </td><td class=\"SmallTitleCenter\" >" . $strDomain . "</td></tr>";
+	echo "<tr><td>Windows Version: </td><td class=\"SmallTitleCenter\" >" . $strWindows . "</td></tr>";
+	echo "<tr><td>Manufacturer: </td><td class=\"SmallTitleCenter\" >" . $strManufacturer . "</td></tr>";
+	echo "<tr><td>Model: </td><td class=\"SmallTitleCenter\" >" . $strModel . "</td></tr>";
+	echo "<tr><td>Serial Number: </td><td class=\"SmallTitleCenter\" >" . $strSerialNumber . "</td></tr>";
+	echo "<tr><td>Memory: </td><td class=\"SmallTitleCenter\" >" . $iMemory . "</td></tr>";
+	echo "<tr><td>Hard Drive: </td><td class=\"SmallTitleCenter\" >" . $strHDD . "</td></tr>";
+	echo "<tr><td>Office Match: </td><td class=\"SmallTitleCenter\" >" . $strOfficeMatch . "</td></tr>";
 	echo "<tr><td>Windows: </td><td class=\"SmallTitleCenter\" >" . $strWindows . "</td></tr>";
 	// echo "<tr><td>Windows Update Performed:</td><td class=\"SmallTitleCenter\"><input type=\"checkbox\" checked=\"checked\" disabled=\"disabled\" /></td></tr>";
 	// echo "<tr><td>Automatic Updates:</td><td class=\"SmallTitleCenter\" ><input type=\"checkbox\" checked=\"checked\" disabled=\"disabled\" /></td></tr>";
