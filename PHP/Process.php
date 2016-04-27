@@ -289,9 +289,7 @@ if (file_exists($strTempFile))
 				$iMemoryLine = Search_File("Memory:", $aMainLines);
 				$iJavaVersion = Search_File("java version", $aMainLines);
 				$aComputerLevel['Processor'] = $aMainLines[$iProcessorLine];
-				$aComputerLevel['HardDrive'] = $aMainLines[$iHardDriveLine];
-				$aComputerLevel['RAM'] = $aMainLines[$iMemoryLine];
-
+				
 				unset($aMatches);
 				preg_match("/Processor: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
 				$strProcessor = $aMatches[1];
@@ -299,13 +297,16 @@ if (file_exists($strTempFile))
 				unset($aMatches);
 				preg_match("/HDD: (.*)/",$aMainLines[$iHardDriveLine],$aMatches);
 				$strHDD = $aMatches[1];
+				$aComputerLevel['HardDrive'] = $aMainLines[$iHardDriveLine];
 
 				unset($aMatches);
 				preg_match("/Memory: (.*)/",$aMainLines[$iMemoryLine],$aMatches);
 				$strRAM = $aMatches[1];
+				round($strRam);
+				$aComputerLevel['RAM'] = $aMainLines[$iMemoryLine];
 
 				unset($aMatches);
-				preg_match("/java version: (.*)/",$aMainLines[$iJavaVersion],$aMatches);
+				preg_match("/java version (.*)/",$aMainLines[$iJavaVersion],$aMatches);
 				$strJavaVersion = $aMatches[1];
 
 				//Dustin - Removing because unnecessary - This is the resolution
@@ -375,9 +376,6 @@ if (file_exists($strTempFile))
 				{
 					$aMeetsServiceLevel["Vista Level"] = "No";
 				}
-				
-
-				//Dustin - Removing because I don't think we care what office level they have
 				if (Meets_Service_Level($aServiceLevels["Office 2013"],$aComputerLevel))
 				{
 					$aMeetsServiceLevel["Office 2013"] = "Yes";
@@ -999,8 +997,8 @@ function Meets_Service_Level($aServiceLevel,$aComputerLevel)
 {
 	//echo "------------------------------------------------------<br />";
 	$boolMeetsLevel = true;
-	$aSearchCats = array("Processor","Optical");
-	$aCompareCats = array("HardDrive","RAM", "Graphic", "OSX");
+	$aSearchCats = array("Processor");
+	$aCompareCats = array("HardDrive","RAM", "OSX");
 	$aNotFindCats = array("Display");
 	
 	foreach ($aServiceLevel as $strTerm => $strValues)

@@ -29,7 +29,7 @@ function DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $st
 	echo "<tr><td>Memory: </td><td class=\"SmallTitleCenter\" >" . $iMemory . "</td></tr>";
 	echo "<tr><td>Hard Drive: </td><td class=\"SmallTitleCenter\" >" . $strHDD . "</td></tr>";
 	echo "<tr><td>Office Match: </td><td class=\"SmallTitleCenter\" >" . $strOfficeMatch . "</td></tr>";
-	echo "<tr><td>Windows: </td><td class=\"SmallTitleCenter\" >" . $strJavaVersion . "</td></tr>";
+	echo "<tr><td>Java Version: </td><td class=\"SmallTitleCenter\" >" . $strJavaVersion . "</td></tr>";
 	// echo "<tr><td>Windows Update Performed:</td><td class=\"SmallTitleCenter\"><input type=\"checkbox\" checked=\"checked\" disabled=\"disabled\" /></td></tr>";
 	// echo "<tr><td>Automatic Updates:</td><td class=\"SmallTitleCenter\" ><input type=\"checkbox\" checked=\"checked\" disabled=\"disabled\" /></td></tr>";
 	// echo "<tr><td>Virus Definitions Updated: </td><td class=\"SmallTitleCenter\"><input type=\"checkbox\" checked=\"checked\" disabled=\"disabled\" /></td></tr>";
@@ -37,12 +37,12 @@ function DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $st
 	// echo "<tr><td>Web Browser: </td><td class=\"SmallTitleCenter\">" . $strWebBrowser . "</td></tr>";
 	// echo "<tr><td>IE Security Level </td><td class=\"SmallTitleCenter\">" . $strIESecurityLevel . "</td></tr>";
 	echo "<tr><td>Does it meet Desktop Service Agreement? </td><td class=\"SmallTitleCenter\">" . $SLA . "</td></tr>";
-	echo "<tr><td>Windows 7 Compatible? </td><td class=\"SmallTitleCenter\">" . $WinSLA . "</td></tr>";
-	echo "<tr><td>Office 2013 Compatible? </td><td class=\"SmallTitleCenter\">" . $OffSLA . "</td></tr>";
+	echo "<tr><td>Windows 10 Compatible? </td><td class=\"SmallTitleCenter\">" . $WinSLA . "</td></tr>";
+	echo "<tr><td>Office 2016 Compatible? </td><td class=\"SmallTitleCenter\">" . $OffSLA . "</td></tr>";
 	echo "<tr><td class=\"FormHeader\" colspan=\"2\">PC Information</td></tr>";
 	// echo "<tr><td class=\"Border\" colspan=\"2\"   ><span class=\"SmallTitle\">Notes:</span><br /><p style=\"margin-bottom:25px;\">" . $strInstall . "<br />" . $strNotes . "</p></td></tr>";
 	echo "<tr><td>Technician Signature: __________________________</td><td>Date Completed: <span class=\"SmallTitleCenter\" >" . date("F d Y") . "</span></td></tr>";
-	echo "<tr><td><a href=\"https://docs.google.com/a/oakland.edu/forms/d/1m43vdBk8qgXm-wRS6wrRpbOUgP8IcL97bWQx9R3i9hw/viewform?usp=send_form\">Enter Serial Number Information</a><td><tr>";
+	// echo "<tr><td><a href=\"https://docs.google.com/a/oakland.edu/forms/d/1m43vdBk8qgXm-wRS6wrRpbOUgP8IcL97bWQx9R3i9hw/viewform?usp=send_form\">Enter Serial Number Information</a><td><tr>";
 	echo "</table>";
 	echo "</body>";
 	echo "</html>";
