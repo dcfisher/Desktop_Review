@@ -66,11 +66,17 @@ $iHardDriveLine = -1;
 
 //Dustin - Removing because unnecessary 
 $iMemoryLine = -1;
+$iManucfacturer = -1;
+$iSerialNumber = -1;
+$iModel = -1;
+$iJavaVersion = -1;
+$iOfficeMatch = -1;
+
 $strProcessor = "None";
 $strHDD = "None";
 $strRAM = "None";
 $strSerialNumber = "None";
-$strManucfacturer = "None";
+$strManufacturer = "None";
 $strModel = "None";
 $strWindowsVersion = "None";
 $strJavaVersion = "None";
@@ -152,6 +158,14 @@ if (file_exists($strTempFile))
 				}
 				
 
+				//Dustin - Save for later if my other method doesn't work
+				// foreach($aMainLines as $row) 
+				// {
+    			//  $components = explode(':', $row, 2);
+    			// 	$arr[$var[0]] = $var[1];
+				// }
+
+
 				//Dustin - Removing because OPENNET isn't a thing anymore
 				// if (Search_File("opennet",$aMainLines) != -1)
 				// {
@@ -168,6 +182,22 @@ if (file_exists($strTempFile))
 				unset($aMatches);
 				preg_match("/System Name: (.*)/",$aMainLines[$iNameLine],$aMatches);
 				$strComputerName = $aMatches[1];
+
+				unset($aMatches);
+				preg_match("/Serial Number: (.*)/",$aMainLines[$iSerialNumber],$aMatches);
+				$strSerialNumber = $aMatches[1];
+
+				unset($aMatches);
+				preg_match("/System Manufacturer: (.*)/",$aMainLines[$iManucfacturer],$aMatches);
+				$strManufacturer = $aMatches[1];
+
+				unset($aMatches);
+				preg_match("/System Model: (.*)/",$aMainLines[$iModel],$aMatches);
+				$strModel = $aMatches[1];
+
+				unset($aMatches);
+				preg_match("/Office Match: (.*)/",$aMainLines[$iOfficeMatch],$aMatches);
+				$strOfficeMatch = $aMatches[1];
 
 
 				//Look for the Type of Windows
@@ -255,10 +285,28 @@ if (file_exists($strTempFile))
 
 				//Now we need to get information about the Processor
 				$iProcessorLine = Search_File("Processor:", $aMainLines);
-				$iHardDriveLine = Search_File("Total Space:",$aMainLines);
+				$iHardDriveLine = Search_File("HDD:",$aMainLines);
 				$iMemoryLine = Search_File("Memory:", $aMainLines);
 				$iJavaVersion = Search_File("java version", $aMainLines);
-				$aComputerLevel['Processor'] =  $aMainLines[$iProcessorLine];
+				$aComputerLevel['Processor'] = $aMainLines[$iProcessorLine];
+				$aComputerLevel['HardDrive'] = $aMainLines[$iHardDriveLine];
+				$aComputerLevel['RAM'] = $aMainLines[$iMemoryLine];
+
+				unset($aMatches);
+				preg_match("/Processor: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
+				$strProcessor = $aMatches[1];
+
+				unset($aMatches);
+				preg_match("/HDD: (.*)/",$aMainLines[$iHardDriveLine],$aMatches);
+				$strHDD = $aMatches[1];
+
+				unset($aMatches);
+				preg_match("/Memory: (.*)/",$aMainLines[$iMemoryLine],$aMatches);
+				$strRAM = $aMatches[1];
+
+				unset($aMatches);
+				preg_match("/java version: (.*)/",$aMainLines[$iJavaVersion],$aMatches);
+				$strJavaVersion = $aMatches[1];
 
 				//Dustin - Removing because unnecessary - This is the resolution
 				// $iDisplayLine = Search_File("Current Mode:", $aMainLines);
@@ -282,14 +330,14 @@ if (file_exists($strTempFile))
 				// }
 				
 				//Get the size of the hard drive from this line
-				unset($aMatches);
-				preg_match('/([0-9\.]+)/',$aMainLines[$iHardDriveLine],$aMatches);
-				$aComputerLevel['HardDrive'] = $aMatches[1];
+				// unset($aMatches);
+				// preg_match('/([0-9\.]+)/',$aMainLines[$iHardDriveLine],$aMatches);
+				// $aComputerLevel['HardDrive'] = $aMatches[1];
 				
-				//Get the Amount of Ram in the Computer
-				unset($aMatches);
-				preg_match('/([0-9\.]+)/',$aMainLines[$iMemoryLine],$aMatches);
-				$aComputerLevel['RAM'] = $aMatches[1];
+				// //Get the Amount of Ram in the Computer
+				// unset($aMatches);
+				// preg_match('/([0-9\.]+)/',$aMainLines[$iMemoryLine],$aMatches);
+				// $aComputerLevel['RAM'] = $aMatches[1];
 				
 				//Dustin - Removing because unnecessary 
 				// unset($aMatches);
@@ -340,24 +388,24 @@ if (file_exists($strTempFile))
 				}
 
 
-				unset($aMatches);
-				list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iProcessorLine]);
-				$aComputerLevel['Processor'] =  $aMatches[1];
+				// unset($aMatches);
+				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iProcessorLine]);
+				// $aComputerLevel['Processor'] =  $aMatches[1];
 			
 				//sometimes the variables have whitespace, this causes problems
 				$strComputerName = trim($strComputerName);
 				$strLocationName = trim($strLocationName);
 				$strDomain = trim($strDomain);
 				//Get the size of the hard drive from this line
-				unset($aMatches);
-				list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iHardDriveLine]);
-				$aComputerLevel['HardDrive'] = $aMatches[1];
+				// unset($aMatches);
+				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iHardDriveLine]);
+				// $aComputerLevel['HardDrive'] = $aMatches[1];
 				
-				//Get the Amount of Ram in the Computer
-				unset($aMatches);
-				list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iMemoryLine]);
-				$aComputerLevel['RAM'] = $aMatches[1];
-				unset($aMatches);
+				// //Get the Amount of Ram in the Computer
+				// unset($aMatches);
+				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iMemoryLine]);
+				// $aComputerLevel['RAM'] = $aMatches[1];
+				// unset($aMatches);
 				
 				// unset($aMatches);
 				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iDisplayLine]);
