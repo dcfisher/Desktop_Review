@@ -2,7 +2,7 @@
 include_once('info.php');
 //Dustin - Old sql injection, in case I screw up again.
 // function SaveRecordInDB($strFName, $strLName, $strDepartment, $strComputerName, $strLocation, $strDomain, $strWindowsVersion, $strWindowsUpdate, $strAutomaticUpdates, $strVirusDefinitions, $strSpywareScan, $strWebBrowser, $strInstallations, $strMeetServiceLevel, $strVistaCompatible, $strOffice2007Compatible, $strComments, $strTech, $LionCompatible, $Processor, $HardDrive, $Optical, $RAM, $Graphics, $Resolution)
-function SaveRecordInDB($strFName, $strLName, $strDepartment, $strComputerName, $strLocation, $strDomain, $strWindowsVersion, $strManufacturer, $strSerialNumber, $strModel, $strJavaVersion, $strMeetServiceLevel, $strWindowsCompatible, $strOfficeCompatible, $strTech, $LionCompatible, $Processor, $HardDrive, $RAM)
+function SaveRecordInDB($strFName, $strLName, $strDepartment, $strComputerName, $strLocation, $strDomain, $strWindowsVersion, $strManufacturer, $strSerialNumber, $strModel, $strJavaVersion, $strMeetServiceLevel, $strWindowsCompatible, $strOfficeCompatible, $strTech, $LionCompatible, $Processor, $HardDrive, $RAM, $OfficeMatch)
 {
 	/*
 	+----------------------+--------------+------+-----+---------+----------------+
@@ -35,19 +35,19 @@ function SaveRecordInDB($strFName, $strLName, $strDepartment, $strComputerName, 
 	
 	$strComputerName = trim($strComputerName);
 	//Set values if missing
-	if ($strWebBrowser == "")
-	{
-		$strWebBrowser = "N/A";
-	}
+	// if ($strWebBrowser == "")
+	// {
+	// 	$strWebBrowser = "N/A";
+	// }
 	
-	if ($strVistaCompatible == "")
+	if ($strWindowsCompatible == "")
 	{
-		$strVistaCompatible = "No";
+		$strWindowsCompatible = "No";
 	}
 
-	if ($strOffice2007Compatible == "")
+	if ($strOfficeCompatible == "")
 	{
-		$strOffice2007Compatible = "No";
+		$strOfficeCompatible = "No";
 	}
 	
 	if ($LionCompatible == "")
@@ -59,11 +59,11 @@ function SaveRecordInDB($strFName, $strLName, $strDepartment, $strComputerName, 
 
 	//Dustin - Old sql injection, in case I screw up again.
 	// $sqlInsertRecord = "insert into ReviewData(FName, LName, Department, ComputerName, Location, Domain, WindowsVersion, WindowsUpdate, AutomaticUpdates, VirusDefinitions, SpywareScan, WebBrowser, Installations, MeetServiceLevel, VistaCompatible, Office2007Compatible, Comments, Tech, DateCompleted, ReviewYear, LionCompatible, Processor, HardDrives, OpticalDrive, RamSize, Graphics, DisplayResolution)";	
-	$sqlInsertRecord = "insert into ReviewData(FName, LName, Department, ComputerName, Location, Domain, WindowsVersion, Manufacturer, SerialNumber, Model, JavaVersion, MeetServiceLevel, WindowsCompatible, OfficeCompatible, Tech, DateCompleted, ReviewYear, LionCompatible, Processor, HardDrives, RamSize)";
+	$sqlInsertRecord = "insert into ReviewData(FName, LName, Department, ComputerName, Location, Domain, WindowsVersion, Manufacturer, SerialNumber, Model, JavaVersion, MeetServiceLevel, WindowsCompatible, OfficeCompatible, Tech, DateCompleted, ReviewYear, LionCompatible, Processor, HardDrives, RamSize, OfficeMatch)";
 
 	//Dustin - Old sql injection, in case I screw up again.
 	// $sqlInsertRecord .= " values('" . $strFName . "','" . $strLName . "','" . $strDepartment ."','" . mysql_real_escape_string($strComputerName) . "','" . $strLocation . "','" . $strDomain . "','" . $strWindowsVersion . "','" . $strWindowsUpdate .  "','" . $strAutomaticUpdates . "','" . $strVirusDefinitions . "','" . $strSpywareScan . "','" . $strWebBrowser . "','" . $strInstallations . "','" . $strMeetServiceLevel . "','" . $strVistaCompatible . "','" . $strOffice2007Compatible . "','" . $strComments . "','" .  $strTech  .  "','" . time() . "','" . date("Y") . "','" . $LionCompatible . "','" . $Processor . "','" . $HardDrive . "','" . $Optical . "','" . $RAM . "','" . $Graphics . "','" . $Resolution . "')";	
-	$sqlInsertRecord .= " values('" . $strFName . "','" . $strLName . "','" . $strDepartment ."','" . mysql_real_escape_string($strComputerName) . "','" . $strLocation . "','" . $strDomain . "','" . $strWindowsVersion . "','" . $strManufacturer .  "','" . $strSerialNumber . "','" . $strModel . "','" . $strJavaVersion . "','"  . $strMeetServiceLevel . "','" . $strWindowsCompatible . "','" . $strOfficeCompatible . "','" .  $strTech  .  "','" . time() . "','" . date("Y") . "','" . $LionCompatible . "','" . $Processor . "','" . $HardDrive . "','"  . $RAM . "')";
+	$sqlInsertRecord .= " values('" . $strFName . "','" . $strLName . "','" . $strDepartment ."','" . mysql_real_escape_string($strComputerName) . "','" . $strLocation . "','" . $strDomain . "','" . $strWindowsVersion . "','" . $strManufacturer .  "','" . $strSerialNumber . "','" . $strModel . "','" . $strJavaVersion . "','"  . $strMeetServiceLevel . "','" . $strWindowsCompatible . "','" . $strOfficeCompatible . "','" .  $strTech  .  "','" . time() . "','" . date("Y") . "','" . $LionCompatible . "','" . $Processor . "','" . $HardDrive . "','"  . $RAM . "','"  . $OfficeMatch ."')";
 
 	
 	$resultInsertRecord = mysql_query($sqlInsertRecord);

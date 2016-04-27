@@ -61,7 +61,7 @@ $strWindows = "";
 // $iGraphicLine = -1;
 
 
-$iProcessLine = -1;
+$iProcessorLine = -1;
 $iHardDriveLine = -1;
 
 //Dustin - Removing because unnecessary 
@@ -440,7 +440,7 @@ if (file_exists($strTempFile))
 
 				//Dustin - Old
 				// SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, "Yes", "Yes", "Yes", "Yes", $strWebBrowser, $strInstall, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strNotes, $strTech, "N/A", $aComputerLevel['Processor'], $aComputerLevel['HardDrive'], $aComputerLevel['Optical'], $aComputerLevel['RAM'], $aComputerLevel['Graphic'], $aComputerLevel['Display']);
-				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $iManucfacturer, $iSerialNumber, $iModel, $iJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strTech, "N/A", $iProcessorLine, $iHardDrive, $iMemory);
+				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $iManucfacturer, $iSerialNumber, $iModel, $iJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strTech, "N/A", $iProcessorLine, $iHardDriveLine, $iMemoryLine, $iOfficeMatch);
 
 				
 			break;
@@ -450,10 +450,10 @@ if (file_exists($strTempFile))
 				$strOS = "Too Old";
 				$strProcessor = "Too Old";
 				$iHardDrive = 0;
-				$strOptical = "";
+				// $strOptical = "";
 				$iMemory = 0;
 				$strComputerName = "";
-				$strSav = "No";
+				// $strSav = "No";
 				$OSXVer = "0";
 				if (strripos($aMainLines[0],"10.10")) //Fun with Yosemite
 				{
@@ -502,12 +502,13 @@ if (file_exists($strTempFile))
 					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
 					$iHardDrive = $aMatches[1];
 			
-					//Get Info About the Optical Drive
-					$strOptical = "CD";
-					if (Search_File("DVD",$aMainLines) != -1)
-					{
-						$strOptical = "DVD";
-					}
+					//Dustin - Removed because not needed
+					// //Get Info About the Optical Drive
+					// $strOptical = "CD";
+					// if (Search_File("DVD",$aMainLines) != -1)
+					// {
+					// 	$strOptical = "DVD";
+					// }
 				}
 				else if (strripos($aMainLines[0],"10.9")) //Fun with Mavericks
 				{
@@ -556,12 +557,13 @@ if (file_exists($strTempFile))
 					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
 					$iHardDrive = $aMatches[1];
 			
-					//Get Info About the Optical Drive
-					$strOptical = "CD";
-					if (Search_File("DVD",$aMainLines) != -1)
-					{
-						$strOptical = "DVD";
-					}
+					//Dustin - No longer needed
+					// //Get Info About the Optical Drive
+					// $strOptical = "CD";
+					// if (Search_File("DVD",$aMainLines) != -1)
+					// {
+					// 	$strOptical = "DVD";
+					// }
 				}
 				else if (strripos($aMainLines[0],"10.8")) //Fun with Mountain Lion
 				{
@@ -610,12 +612,13 @@ if (file_exists($strTempFile))
 					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
 					$iHardDrive = $aMatches[1];
 			
-					//Get Info About the Optical Drive
-					$strOptical = "CD";
-					if (Search_File("DVD",$aMainLines) != -1)
-					{
-						$strOptical = "DVD";
-					}
+					//Dustin - No longer needed
+					// //Get Info About the Optical Drive
+					// $strOptical = "CD";
+					// if (Search_File("DVD",$aMainLines) != -1)
+					// {
+					// 	$strOptical = "DVD";
+					// }
 				}
 
 				else if (strripos($aMainLines[0],"10.7")) //Fun with Lion
@@ -665,12 +668,13 @@ if (file_exists($strTempFile))
 					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
 					$iHardDrive = $aMatches[1];
 			
-					//Get Info About the Optical Drive
-					$strOptical = "CD";
-					if (Search_File("DVD",$aMainLines) != -1)
-					{
-						$strOptical = "DVD";
-					}
+					//Dustin - Not needed
+					// //Get Info About the Optical Drive
+					// $strOptical = "CD";
+					// if (Search_File("DVD",$aMainLines) != -1)
+					// {
+					// 	$strOptical = "DVD";
+					// }
 				}
 				else if (strripos($aMainLines[0],"10.6")) //Fun with Snow Leopard
 				{
@@ -719,12 +723,13 @@ if (file_exists($strTempFile))
 					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
 					$iHardDrive = $aMatches[1];
 			
-					//Get Info About the Optical Drive
-					$strOptical = "CD";
-					if (Search_File("DVD",$aMainLines) != -1)
-					{
-						$strOptical = "DVD";
-					}
+					//Dustin - Not needed
+					// //Get Info About the Optical Drive
+					// $strOptical = "CD";
+					// if (Search_File("DVD",$aMainLines) != -1)
+					// {
+					// 	$strOptical = "DVD";
+					// }
 				}
 				else if (strripos($aMainLines[0],"10.5")) //Fun with Leopard, This OS is no longer supported 										
 				{										  //The memory section was removed to cause a failure
@@ -763,12 +768,13 @@ if (file_exists($strTempFile))
 					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
 					$iHardDrive = $aMatches[1];
 					
-					//Get Info About the Optical Drive
-					$strOptical = "CD";
-					if (Search_File("DVD",$aMainLines) != -1)
-					{
-						$strOptical = "DVD";	
-					}	
+					//Dustin - Not needed
+					// //Get Info About the Optical Drive
+					// $strOptical = "CD";
+					// if (Search_File("DVD",$aMainLines) != -1)
+					// {
+					// 	$strOptical = "DVD";	
+					// }	
 				}
 				else if (strripos($aMainLines[0],"10.4")) //Fun with Tiger, This OS is no longer supported 										
 				{										  //The memory section was removed to cause a failure
@@ -807,19 +813,21 @@ if (file_exists($strTempFile))
 					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
 					$iHardDrive = $aMatches[1];
 					
-					//Get Info About the Optical Drive
-					$strOptical = "CD";
-					if (Search_File("DVD",$aMainLines) != -1)
-					{
-						$strOptical = "DVD";			
-					}
+					//Dustin - We don't care if there's a DVD drive anymore
+					// //Get Info About the Optical Drive
+					// $strOptical = "CD";
+					// if (Search_File("DVD",$aMainLines) != -1)
+					// {
+					// 	$strOptical = "DVD";			
+					// }
 				}
 				
-				//Check for Symantec Running on this Computer
-				if (Search_File("SAV RUN",$aMainLines) != -1)
-				{
-					$strSav = "Yes";
-				}
+				//Dustin - Just setting it to yes so it's useless
+				// //Check for Symantec Running on this Computer
+				// if (Search_File("SAV RUN",$aMainLines) != -1)
+				// {
+				// 	$strSav = "Yes";
+				// }
 				
 				$aComputerLevel["Processor"] = $strProcessor;
 				$aComputerLevel["RAM"] = $iMemory;
@@ -899,8 +907,13 @@ if (file_exists($strTempFile))
 					echo "</html>";
 					exit(); //prevent further execution of this script
 				}
-				DispFormMac($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strOS, $aMeetsServiceLevel["Mac 2009"], $strInstall, $strNotes, $strSav, $aMeetsServiceLevel["LionCompatible"]);
-				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, "None", $strOS, "Yes", "Yes", $strSav , "No","N/A", $strInstall, $aMeetsServiceLevel["Mac 2009"], "N/A", "N/A", $strNotes, $strTech, $aMeetsServiceLevel["LionCompatible"], "N/A", "N/A", "N/A", "N/A", "N/A", "N/A");
+				//Dustin - Updated
+				// DispFormMac($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strOS, $aMeetsServiceLevel["Mac 2009"], $strInstall, $strNotes, $strSav, $aMeetsServiceLevel["LionCompatible"]);
+				// SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, "None", $strOS, "Yes", "Yes", $strSav , "No","N/A", $strInstall, $aMeetsServiceLevel["Mac 2009"], "N/A", "N/A", $strNotes, $strTech, $aMeetsServiceLevel["LionCompatible"], "N/A", "N/A", "N/A", "N/A", "N/A", "N/A");
+
+				DispFormMac($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strOS, $aMeetsServiceLevel["Mac 2009"], $strInstall, $strSav, $aMeetsServiceLevel["LionCompatible"]);
+
+				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, "None", $strOS, $OSXVer, "N/A", "N/A","N/A", $aMeetsServiceLevel["Mac 2009"], "N/A", "N/A", $strTech, $aMeetsServiceLevel["LionCompatible"], $strProcessor, $iHardDrive, $iMemory, "N/A");
 		}
 	}
 }
