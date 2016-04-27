@@ -61,17 +61,20 @@ $strWindows = "";
 // $iGraphicLine = -1;
 
 
-$iProcessorLine = "None";
-$iHardDriveLine = "None";
+$iProcessorLine = -1;
+$iHardDriveLine = -1;
 
 //Dustin - Removing because unnecessary 
-$iMemoryLine = "None";
-$iSerialNumber = "None";
-$iManucfacturer = "None";
-$iModel = "None";
-$iWindowsVersion = "None";
-$iJavaVersion = "None";
-$iOfficeMatch = "None";
+$iMemoryLine = -1;
+$strProcessor = "None";
+$strHDD = "None";
+$strRAM = "None";
+$strSerialNumber = "None";
+$strManucfacturer = "None";
+$strModel = "None";
+$strWindowsVersion = "None";
+$strJavaVersion = "None";
+$strOfficeMatch = "None";
 
 unset($aComputerLevel);
 unset($aServiceLevels);
@@ -432,7 +435,7 @@ if (file_exists($strTempFile))
 
 				//Dustin - Old 
 				// DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strWebBrowser, $strIESecurityLevel, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strInstall, $strNotes);
-				DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $iManufacturer, $iModel, $iSerialNumber, $iMemoryLine, $iHardDriveLine, $iOfficeMatch, $iProcessorLine, $iJavaVersion, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"]);
+				DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strModel, $strSerialNumber, $strRAM, $strHDD, $strOfficeMatch, $strProcessor, $strJavaVersion, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"]);
 				
 				
 
