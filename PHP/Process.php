@@ -61,12 +61,12 @@ $strWindows = "";
 // $iGraphicLine = -1;
 
 
-$iProcessorLine = -1;
-$iHardDriveLine = -1;
+$iProcessorLine = "None";
+$iHardDriveLine = "None";
 
 //Dustin - Removing because unnecessary 
-$iMemoryLine = -1;
-$iSerialNumber = -1;
+$iMemoryLine = "None";
+$iSerialNumber = "None";
 $iManucfacturer = "None";
 $iModel = "None";
 $iWindowsVersion = "None";
@@ -160,7 +160,7 @@ if (file_exists($strTempFile))
 				$iSerialNumber = Search_File("Serial Number:", $aMainLines);
 				$iManucfacturer = Search_File("System Manufacturer:",$aMainLines);
 				$iModel = Search_File("System Model:",$aMainLines);
-				$iOfficeMatch = Search_File("Office Match:". $aMainLines);
+				$iOfficeMatch = Search_File("Office Match:", $aMainLines);
 
 				unset($aMatches);
 				preg_match("/System Name: (.*)/",$aMainLines[$iNameLine],$aMatches);
@@ -327,14 +327,14 @@ if (file_exists($strTempFile))
 				
 
 				//Dustin - Removing because I don't think we care what office level they have
-				// if (Meets_Service_Level($aServiceLevels["Office 2013"],$aComputerLevel))
-				// {
-				// 	$aMeetsServiceLevel["Office 2013"] = "Yes";
-				// }
-				// else
-				// {
-				// 	$aMeetsServiceLevel["Office 2013"] = "No";
-				// }
+				if (Meets_Service_Level($aServiceLevels["Office 2013"],$aComputerLevel))
+				{
+					$aMeetsServiceLevel["Office 2013"] = "Yes";
+				}
+				else
+				{
+					$aMeetsServiceLevel["Office 2013"] = "No";
+				}
 
 
 				unset($aMatches);
@@ -356,13 +356,13 @@ if (file_exists($strTempFile))
 				$aComputerLevel['RAM'] = $aMatches[1];
 				unset($aMatches);
 				
-				unset($aMatches);
-				list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iDisplayLine]);
-				$aComputerLevel['Display']= $aMatches[1];
+				// unset($aMatches);
+				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iDisplayLine]);
+				// $aComputerLevel['Display']= $aMatches[1];
 
-				unset($aMatches);
-				list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iGraphicLine]);			
-				$aComputerLevel['Graphic'] = $aMatches[1];
+				// unset($aMatches);
+				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iGraphicLine]);			
+				// $aComputerLevel['Graphic'] = $aMatches[1];
 				
 				//Dustin - Removing because unnecessary 
 				//Exile OPENNET computers
@@ -432,7 +432,7 @@ if (file_exists($strTempFile))
 
 				//Dustin - Old 
 				// DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strWebBrowser, $strIESecurityLevel, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strInstall, $strNotes);
-				DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $trModel, $strSerialNumber, $iMemoryLine, $iHardDriveLine, $iOfficeMatch, $iProcessorLine, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"]);
+				DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $iManufacturer, $iModel, $iSerialNumber, $iMemoryLine, $iHardDriveLine, $iOfficeMatch, $iProcessorLine, $iJavaVersion, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"]);
 				
 				
 

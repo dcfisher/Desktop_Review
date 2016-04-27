@@ -34,6 +34,7 @@ function SaveRecordInDB($strFName, $strLName, $strDepartment, $strComputerName, 
 	*/
 	
 	$strComputerName = trim($strComputerName);
+	$timestamp = date('Y-m-d H:i:s');
 	//Set values if missing
 	// if ($strWebBrowser == "")
 	// {
@@ -63,7 +64,7 @@ function SaveRecordInDB($strFName, $strLName, $strDepartment, $strComputerName, 
 
 	//Dustin - Old sql injection, in case I screw up again.
 	// $sqlInsertRecord .= " values('" . $strFName . "','" . $strLName . "','" . $strDepartment ."','" . mysql_real_escape_string($strComputerName) . "','" . $strLocation . "','" . $strDomain . "','" . $strWindowsVersion . "','" . $strWindowsUpdate .  "','" . $strAutomaticUpdates . "','" . $strVirusDefinitions . "','" . $strSpywareScan . "','" . $strWebBrowser . "','" . $strInstallations . "','" . $strMeetServiceLevel . "','" . $strVistaCompatible . "','" . $strOffice2007Compatible . "','" . $strComments . "','" .  $strTech  .  "','" . time() . "','" . date("Y") . "','" . $LionCompatible . "','" . $Processor . "','" . $HardDrive . "','" . $Optical . "','" . $RAM . "','" . $Graphics . "','" . $Resolution . "')";	
-	$sqlInsertRecord .= " values('" . $strFName . "','" . $strLName . "','" . $strDepartment ."','" . mysql_real_escape_string($strComputerName) . "','" . $strLocation . "','" . $strDomain . "','" . $strWindowsVersion . "','" . $strManufacturer .  "','" . $strSerialNumber . "','" . $strModel . "','" . $strJavaVersion . "','"  . $strMeetServiceLevel . "','" . $strWindowsCompatible . "','" . $strOfficeCompatible . "','" .  $strTech  .  "','" . time() . "','" . date("Y") . "','" . $LionCompatible . "','" . $Processor . "','" . $HardDrive . "','"  . $RAM . "','"  . $OfficeMatch ."')";
+	$sqlInsertRecord .= " values('" . $strFName . "','" . $strLName . "','" . $strDepartment ."','" . mysql_real_escape_string($strComputerName) . "','" . $strLocation . "','" . $strDomain . "','" . $strWindowsVersion . "','" . $strManufacturer .  "','" . $strSerialNumber . "','" . $strModel . "','" . $strJavaVersion . "','"  . $strMeetServiceLevel . "','" . $strWindowsCompatible . "','" . $strOfficeCompatible . "','" .  $strTech  .  "','" . $timestamp . "','" . date("Y") . "','" . $LionCompatible . "','" . $Processor . "','" . $HardDrive . "','"  . $RAM . "','"  . $OfficeMatch ."')";
 
 	
 	$resultInsertRecord = mysql_query($sqlInsertRecord);
