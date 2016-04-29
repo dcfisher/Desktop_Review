@@ -422,7 +422,7 @@ if (file_exists($strTempFile))
 					
 				//Check if duplicate record exists by ComputerName, Domain and Current Year
 				// $query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . $strComputerName . "' AND Domain='" . $strDomain . "' AND ReviewYear='" . date("Y") ."'";
-				$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . addslashes($strComputerName) . "' AND ReviewYear='" . date("Y") ."' AND FName='" . $strFName . "' AND LName='" . $strLName . "' AND Location='" . $strLocationName;
+				$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . addslashes($strComputerName) . "' AND ReviewYear='" . date("Y") ."' AND FName='" . $strFName . "' AND LName='" . $strLName . "' AND Location='" . $strLocationName . "'";
 				//echo $query_string . "<br>";
 				$query = mysql_query($query_string);	
 				//This will stay '0' if nothing matches as ReviewId should never be 0.
