@@ -370,13 +370,13 @@ if (file_exists($strTempFile))
 					$aMeetsServiceLevel["Service Level"] = "No";
 				}
 				
-				if (Meets_Service_Level($aServiceLevels["Win7"],$aComputerLevel))
+				if (Meets_Service_Level($aServiceLevels["Win10"],$aComputerLevel))
 				{
-					$aMeetsServiceLevel["Win7"] = "Yes";
+					$aMeetsServiceLevel["Win10"] = "Yes";
 				}
 				else
 				{
-					$aMeetsServiceLevel["Win7"] = "No";
+					$aMeetsServiceLevel["Win10"] = "No";
 				}
 				if (Meets_Service_Level($aServiceLevels["Office 2016"],$aComputerLevel))
 				{
