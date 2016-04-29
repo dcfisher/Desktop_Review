@@ -1,29 +1,21 @@
 ***Service Level***
 Processor => AMD A4,AMD A6,AMD A8,AMD A10,Core(TM)2,Core(TM)2 Quad,Pentium(R) 4,Pentium(R) D,Pentium(R),Core(TM) i3,Core(TM) i5,Core(TM) i7,Pentium(R) Dual,Turion(tm) 64,AMD Phenom(tm),Intel Xeon,Atom(TM),Sempron(tm),Athlon(tm) 64,Athlon(tm) 64 Dual Core,Athlon(tm) Dual Core,Pentium(R) M,Turion(tm) X2,Turion(tm) 64 X2, Celeron(R), Athlon(tm) II,Intel(R) Xeon(R), Core 2
 HardDrive => 35
-Optical => DVD,CD
 RAM => 900
 
 ***7 Level***
 Processor => AMD A4,AMD A6,AMD A8,AMD A10,Core(TM)2,Pentium(R) D,Core(TM) i3,Core(TM) i5,Core(TM) i7,Pentium(R) Dual,Turion(tm) 64,AMD Phenom(tm),Intel Xeon,Athlon(tm) 64 Dual Core,Athlon(tm) Dual Core,Turion(tm), Celeron(R), Athlon(tm) II,Athlon(tm) 64 X,Intel(R) Xeon(R)
-
 HardDrive => 35
-Optical => DVD
 RAM => 900
-Graphic => 128
 
 ***Office 2013***
 Processor =>  AMD A4,AMD A6,AMD A8,AMD A10,Core(TM)2,Pentium(4) R,Pentium(R) D,Core(TM) i3,Core(TM) i5,Core(TM) i7,Pentium(R) Dual,Turion(tm) 64,AMD Phenom(tm),Intel Xeon,Atom(TM),Sempron(tm),Athlon(tm) 64,Athlon(tm) 64 Dual Core,Athlon(tm) Dual Core,Pentium(R) M,Turion(tm) X2,Turion(tm) 64 X2, Celeron(R), Athlon(tm) II, Intel(R) Xeon(R)
-
 HardDrive => 2
-Optical => DVD,CD
 RAM => 1000
-Display => 1024 x 576
 
 ***Mac 2009***
 Processor => Intel Core i3,Intel Core Duo,Intel Core i5,Intel Core i7,Intel Core 2 Duo,Intel Xeon
 HardDrive => 40
-Optical => DVD,CD
 RAM => 1974
 
 ***Lion Compatible***

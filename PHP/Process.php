@@ -74,7 +74,7 @@ $iOfficeMatch = -1;
 
 $strProcessor = "None";
 $strHDD = "None";
-$strRAM = "None";
+$strRAM = 0;
 $strSerialNumber = "None";
 $strManufacturer = "None";
 $strModel = "None";
@@ -288,11 +288,12 @@ if (file_exists($strTempFile))
 				$iHardDriveLine = Search_File("HDD:",$aMainLines);
 				$iMemoryLine = Search_File("Memory:", $aMainLines);
 				$iJavaVersion = Search_File("Java Version:", $aMainLines);
-				$aComputerLevel['Processor'] = $aMainLines[$iProcessorLine];
+				// $aComputerLevel['Processor'] = $aMainLines[$iProcessorLine];
 				
 				unset($aMatches);
 				preg_match("/Processor: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
 				$strProcessor = $aMatches[1];
+				$aComputerLevel['Processor'] = $strProcessor;
 
 				unset($aMatches);
 				preg_match("/HDD: (.*)/",$aMainLines[$iHardDriveLine],$aMatches);
@@ -302,7 +303,8 @@ if (file_exists($strTempFile))
 				unset($aMatches);
 				preg_match("/Memory: (.*)/",$aMainLines[$iMemoryLine],$aMatches);
 				$strRAM = $aMatches[1];
-				round($strRAM);
+				$strRAM = round($strRAM);
+
 				// $aComputerLevel['RAM'] = $aMainLines[$iMemoryLine];
 
 				unset($aMatches);
@@ -330,19 +332,19 @@ if (file_exists($strTempFile))
 				// 	$aComputerLevel['Optical'] = "CD";
 				// }
 				
-				// Get the size of the hard drive from this line
-				unset($aMatches);
-				preg_match('/([0-9\.]+)/',$aMainLines[$iHardDriveLine],$aMatches);
-				$aComputerLevel['HardDrive'] = $aMatches[1];
+				// // Get the size of the hard drive from this line
+				// unset($aMatches);
+				// preg_match('/([0-9\.]+)/',$aMainLines[$iHardDriveLine],$aMatches);
+				// $aComputerLevel['HardDrive'] = $aMatches[1];
 				
-				//Get the Amount of Ram in the Computer
-				unset($aMatches);
-				preg_match('/([0-9\.]+)/',$aMainLines[$iMemoryLine],$aMatches);
-				$aComputerLevel['RAM'] = $aMatches[1];
+				// //Get the Amount of Ram in the Computer
+				// unset($aMatches);
+				// preg_match('/([0-9\.]+)/',$aMainLines[$iMemoryLine],$aMatches);
+				// $aComputerLevel['RAM'] = $aMatches[1];
 				
 				// Dustin - Removing because unnecessary 
-				unset($aMatches);
-				$aComputerLevel['Display']=$iDisplayLine;
+				// unset($aMatches);
+				// $aComputerLevel['Display']=$iDisplayLine;
 			
 				// Dustin - Removing because unnecessary 
 				// //Deal with the Graphics Memory
@@ -368,21 +370,21 @@ if (file_exists($strTempFile))
 					$aMeetsServiceLevel["Service Level"] = "No";
 				}
 				
-				if (Meets_Service_Level($aServiceLevels["7 Level"],$aComputerLevel))
+				if (Meets_Service_Level($aServiceLevels["Win7"],$aComputerLevel))
 				{
-					$aMeetsServiceLevel["Vista Level"] = "Yes";
+					$aMeetsServiceLevel["Win7"] = "Yes";
 				}
 				else
 				{
-					$aMeetsServiceLevel["Vista Level"] = "No";
+					$aMeetsServiceLevel["Win7"] = "No";
 				}
-				if (Meets_Service_Level($aServiceLevels["Office 2013"],$aComputerLevel))
+				if (Meets_Service_Level($aServiceLevels["Office 2016"],$aComputerLevel))
 				{
-					$aMeetsServiceLevel["Office 2013"] = "Yes";
+					$aMeetsServiceLevel["Office 2016"] = "Yes";
 				}
 				else
 				{
-					$aMeetsServiceLevel["Office 2013"] = "No";
+					$aMeetsServiceLevel["Office 2016"] = "No";
 				}
 
 
@@ -421,7 +423,7 @@ if (file_exists($strTempFile))
 				// }
 					
 				//Check if duplicate record exists by ComputerName, Domain and Current Year
-				// $query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . $strComputerName . "' AND Domain='" . $strDomain . "' AND ReviewYear='" . date("Y") ."'";
+				//$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . $strComputerName . "' AND Domain='" . $strDomain . "' AND ReviewYear='" . date("Y") ."'";
 				$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . addslashes($strComputerName) . "' AND ReviewYear='" . date("Y") ."' AND FName='" . $strFName . "' AND LName='" . $strLName . "' AND Location='" . $strLocationName . "'";
 				//echo $query_string . "<br>";
 				$query = mysql_query($query_string);	
@@ -482,7 +484,7 @@ if (file_exists($strTempFile))
 
 				//Dustin - Old 
 				// DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strWebBrowser, $strIESecurityLevel, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strInstall, $strNotes);
-				DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strModel, $strSerialNumber, $strRAM, $strHDD, $strOfficeMatch, $strProcessor, $strJavaVersion, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"]);
+				DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strModel, $strSerialNumber, $strRAM, $strHDD, $strOfficeMatch, $strProcessor, $strJavaVersion, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Win7"], $aMeetsServiceLevel["Office 2016"]);
 				
 				
 
@@ -490,7 +492,7 @@ if (file_exists($strTempFile))
 
 				//Dustin - Old
 				// SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, "Yes", "Yes", "Yes", "Yes", $strWebBrowser, $strInstall, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strNotes, $strTech, "N/A", $aComputerLevel['Processor'], $aComputerLevel['HardDrive'], $aComputerLevel['Optical'], $aComputerLevel['RAM'], $aComputerLevel['Graphic'], $aComputerLevel['Display']);
-				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strSerialNumber, $strModel, $strJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strTech, "N/A", $strProcessor, $strHDD, $strRAM, $strOfficeMatch);
+				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strSerialNumber, $strModel, $strJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Win7"], $aMeetsServiceLevel["Office 2016"], $strTech, "N/A", $strProcessor, $strHDD, $strRAM, $strOfficeMatch);
 
 				
 			break;
@@ -910,7 +912,7 @@ if (file_exists($strTempFile))
 					exit();
 				}
 			
-				$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . addslashes($strComputerName) . "' AND ReviewYear='" . date("Y") ."' AND FName='" . $strFName . "' AND LName='" . $strLName . "' AND Location='" . $strLocationName;
+				$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . addslashes($strComputerName) . "' AND ReviewYear='" . date("Y") ."' AND FName='" . $strFName . "' AND LName='" . $strLName . "' AND Location='" . $strLocationName . "'";
 				$query = mysql_query($query_string);	
 				//This will stay '0' if nothing matches as ReviewId should never be 0.
 				$LastId=0;
@@ -1000,7 +1002,7 @@ function Meets_Service_Level($aServiceLevel,$aComputerLevel)
 	$boolMeetsLevel = true;
 	$aSearchCats = array("Processor");
 	$aCompareCats = array("HardDrive","RAM", "OSX");
-	$aNotFindCats = array("Display");
+	// $aNotFindCats = array("Display");
 	
 	foreach ($aServiceLevel as $strTerm => $strValues)
 	{
@@ -1031,35 +1033,36 @@ function Meets_Service_Level($aServiceLevel,$aComputerLevel)
 				}
 			}
 			
-			if (in_array($strTerm,$aCompareCats)) //Is this the type of operation to compare values
-			{
-				$strValue = $aServiceLevel[$strTerm];
+			// if (in_array($strTerm,$aCompareCats)) //Is this the type of operation to compare values
+			// {
+			// 	$strValue = $aServiceLevel[$strTerm];
 
-				//echo "Term: " . $strTerm . " - " . $aComputerLevel[$strTerm] . " >= " . $strValue . "<br />";
-				if ($aComputerLevel[$strTerm] >= $strValue)
-				{
-					$boolRequirementMet = true;
-				}
-			}
+			// 	//echo "Term: " . $strTerm . " - " . $aComputerLevel[$strTerm] . " >= " . $strValue . "<br />";
+			// 	if ($aComputerLevel[$strTerm] >= $strValue)
+			// 	{
+			// 		$boolRequirementMet = true;
+			// 	}
+			// }
 			
-			if (in_array($strTerm,$aNotFindCats)) //Is this the type of operation where we do not want to find drives
-			{
+			// Dustin - 
+			// if (in_array($strTerm,$aNotFindCats)) //Is this the type of operation where we do not want to find drives
+			// {
 				
-				$boolRequirementMet = true;
-				//Break up the values into an array
-				$aValues = explode(',',$strValues);
-				foreach ($aValues as $strValue) //go through each of the values and see if it fits
-				{
-					if (strripos($aComputerLevel[$strTerm],$strValue))
-					{
-						$boolRequirementMet = false;
-					}
-				}
-			}
-			if (!$boolRequirementMet)
-			{
-				$boolMeetsLevel = false; ////Epic Fail
-			}
+			// 	$boolRequirementMet = true;
+			// 	//Break up the values into an array
+			// 	$aValues = explode(',',$strValues);
+			// 	foreach ($aValues as $strValue) //go through each of the values and see if it fits
+			// 	{
+			// 		if (strripos($aComputerLevel[$strTerm],$strValue))
+			// 		{
+			// 			$boolRequirementMet = false;
+			// 		}
+			// 	}
+			// }
+			// if (!$boolRequirementMet)
+			// {
+			// 	$boolMeetsLevel = false; ////Epic Fail
+			// }
 			
 		}
 	}
