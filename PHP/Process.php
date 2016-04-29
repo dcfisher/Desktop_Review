@@ -287,7 +287,7 @@ if (file_exists($strTempFile))
 				$iProcessorLine = Search_File("Processor:", $aMainLines);
 				$iHardDriveLine = Search_File("HDD:",$aMainLines);
 				$iMemoryLine = Search_File("Memory:", $aMainLines);
-				$iJavaVersion = Search_File("java version", $aMainLines);
+				$iJavaVersion = Search_File("Java Version:", $aMainLines);
 				$aComputerLevel['Processor'] = $aMainLines[$iProcessorLine];
 				
 				unset($aMatches);
@@ -302,11 +302,11 @@ if (file_exists($strTempFile))
 				unset($aMatches);
 				preg_match("/Memory: (.*)/",$aMainLines[$iMemoryLine],$aMatches);
 				$strRAM = $aMatches[1];
-				round($strRam);
+				round($strRAM);
 				$aComputerLevel['RAM'] = $aMainLines[$iMemoryLine];
 
 				unset($aMatches);
-				preg_match("/java version (.*)/",$aMainLines[$iJavaVersion],$aMatches);
+				preg_match("/Java Version: (.*)/",$aMainLines[$iJavaVersion],$aMatches);
 				$strJavaVersion = $aMatches[1];
 
 				//Dustin - Removing because unnecessary - This is the resolution
@@ -489,7 +489,7 @@ if (file_exists($strTempFile))
 
 				//Dustin - Old
 				// SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, "Yes", "Yes", "Yes", "Yes", $strWebBrowser, $strInstall, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strNotes, $strTech, "N/A", $aComputerLevel['Processor'], $aComputerLevel['HardDrive'], $aComputerLevel['Optical'], $aComputerLevel['RAM'], $aComputerLevel['Graphic'], $aComputerLevel['Display']);
-				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $iManucfacturer, $iSerialNumber, $iModel, $iJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strTech, "N/A", $iProcessorLine, $iHardDriveLine, $iMemoryLine, $iOfficeMatch);
+				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManucfacturer, $strSerialNumber, $strModel, $strJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strTech, "N/A", $strProcessor, $strHDD, $strRAM, $strOfficeMatch);
 
 				
 			break;
