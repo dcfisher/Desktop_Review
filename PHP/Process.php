@@ -297,13 +297,13 @@ if (file_exists($strTempFile))
 				unset($aMatches);
 				preg_match("/HDD: (.*)/",$aMainLines[$iHardDriveLine],$aMatches);
 				$strHDD = $aMatches[1];
-				$aComputerLevel['HardDrive'] = $aMainLines[$iHardDriveLine];
+				// $aComputerLevel['HardDrive'] = $aMainLines[$iHardDriveLine];
 
 				unset($aMatches);
 				preg_match("/Memory: (.*)/",$aMainLines[$iMemoryLine],$aMatches);
 				$strRAM = $aMatches[1];
 				round($strRAM);
-				$aComputerLevel['RAM'] = $aMainLines[$iMemoryLine];
+				// $aComputerLevel['RAM'] = $aMainLines[$iMemoryLine];
 
 				unset($aMatches);
 				preg_match("/Java Version: (.*)/",$aMainLines[$iJavaVersion],$aMatches);
@@ -330,21 +330,21 @@ if (file_exists($strTempFile))
 				// 	$aComputerLevel['Optical'] = "CD";
 				// }
 				
-				//Get the size of the hard drive from this line
-				// unset($aMatches);
-				// preg_match('/([0-9\.]+)/',$aMainLines[$iHardDriveLine],$aMatches);
-				// $aComputerLevel['HardDrive'] = $aMatches[1];
+				// Get the size of the hard drive from this line
+				unset($aMatches);
+				preg_match('/([0-9\.]+)/',$aMainLines[$iHardDriveLine],$aMatches);
+				$aComputerLevel['HardDrive'] = $aMatches[1];
 				
-				// //Get the Amount of Ram in the Computer
-				// unset($aMatches);
-				// preg_match('/([0-9\.]+)/',$aMainLines[$iMemoryLine],$aMatches);
-				// $aComputerLevel['RAM'] = $aMatches[1];
+				//Get the Amount of Ram in the Computer
+				unset($aMatches);
+				preg_match('/([0-9\.]+)/',$aMainLines[$iMemoryLine],$aMatches);
+				$aComputerLevel['RAM'] = $aMatches[1];
 				
-				//Dustin - Removing because unnecessary 
-				// unset($aMatches);
-				// $aComputerLevel['Display']=$iDisplayLine;
+				// Dustin - Removing because unnecessary 
+				unset($aMatches);
+				$aComputerLevel['Display']=$iDisplayLine;
 			
-				//Dustin - Removing because unnecessary 
+				// Dustin - Removing because unnecessary 
 				// //Deal with the Graphics Memory
 				// unset($aMatches);
 				// preg_match('/([0-9\.]+)/',$aMainLines[$iGraphicLine],$aMatches);
@@ -421,7 +421,8 @@ if (file_exists($strTempFile))
 				// }
 					
 				//Check if duplicate record exists by ComputerName, Domain and Current Year
-				$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . $strComputerName . "' AND Domain='" . $strDomain . "' AND ReviewYear='" . date("Y") ."'";
+				// $query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . $strComputerName . "' AND Domain='" . $strDomain . "' AND ReviewYear='" . date("Y") ."'";
+				$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . addslashes($strComputerName) . "' AND ReviewYear='" . date("Y") ."' AND FName='" . $strFName . "' AND LName='" . $strLName . "' AND Location='" . $strLocationName;
 				//echo $query_string . "<br>";
 				$query = mysql_query($query_string);	
 				//This will stay '0' if nothing matches as ReviewId should never be 0.
@@ -489,7 +490,7 @@ if (file_exists($strTempFile))
 
 				//Dustin - Old
 				// SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, "Yes", "Yes", "Yes", "Yes", $strWebBrowser, $strInstall, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strNotes, $strTech, "N/A", $aComputerLevel['Processor'], $aComputerLevel['HardDrive'], $aComputerLevel['Optical'], $aComputerLevel['RAM'], $aComputerLevel['Graphic'], $aComputerLevel['Display']);
-				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManucfacturer, $strSerialNumber, $strModel, $strJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strTech, "N/A", $strProcessor, $strHDD, $strRAM, $strOfficeMatch);
+				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strSerialNumber, $strModel, $strJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strTech, "N/A", $strProcessor, $strHDD, $strRAM, $strOfficeMatch);
 
 				
 			break;
@@ -909,7 +910,7 @@ if (file_exists($strTempFile))
 					exit();
 				}
 			
-				$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . addslashes($strComputerName) . "' AND ReviewYear='" . date("Y") ."'";
+				$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . addslashes($strComputerName) . "' AND ReviewYear='" . date("Y") ."' AND FName='" . $strFName . "' AND LName='" . $strLName . "' AND Location='" . $strLocationName;
 				$query = mysql_query($query_string);	
 				//This will stay '0' if nothing matches as ReviewId should never be 0.
 				$LastId=0;

@@ -34,7 +34,7 @@ function SaveRecordInDB($strFName, $strLName, $strDepartment, $strComputerName, 
 	*/
 	
 	$strComputerName = trim($strComputerName);
-	$timestamp = date('Y-m-d H:i:s');
+	$timestamp = date("h:i:sa");
 	//Set values if missing
 	// if ($strWebBrowser == "")
 	// {
