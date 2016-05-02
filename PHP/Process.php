@@ -288,7 +288,7 @@ if (file_exists($strTempFile))
 				$iHardDriveLine = Search_File("HDD:",$aMainLines);
 				$iMemoryLine = Search_File("Memory:", $aMainLines);
 				$iJavaVersion = Search_File("Java Version:", $aMainLines);
-				// $aComputerLevel['Processor'] = $aMainLines[$iProcessorLine];
+				$aComputerLevel['Processor'] = $aMainLines[$iProcessorLine];
 				
 				unset($aMatches);
 				preg_match("/Processor: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
@@ -310,6 +310,11 @@ if (file_exists($strTempFile))
 				unset($aMatches);
 				preg_match("/Java Version: (.*)/",$aMainLines[$iJavaVersion],$aMatches);
 				$strJavaVersion = $aMatches[1];
+
+				//Dustin - Not sure if this is important for SLA. I think it's doing line 293-295
+				// unset($aMatches);
+				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iProcessorLine]);
+				// $aComputerLevel['Processor'] =  $aMatches[1];
 
 				//Dustin - Removing because unnecessary - This is the resolution
 				// $iDisplayLine = Search_File("Current Mode:", $aMainLines);
@@ -364,33 +369,36 @@ if (file_exists($strTempFile))
 				if (Meets_Service_Level($aServiceLevels["Service Level"],$aComputerLevel))
 				{
 					$aMeetsServiceLevel["Service Level"] = "Yes";
-				}
-				else
-				{
-					$aMeetsServiceLevel["Service Level"] = "No";
-				}
-				
-				if (Meets_Service_Level($aServiceLevels["Win10"],$aComputerLevel))
-				{
 					$aMeetsServiceLevel["Win10"] = "Yes";
-				}
-				else
-				{
-					$aMeetsServiceLevel["Win10"] = "No";
-				}
-				if (Meets_Service_Level($aServiceLevels["Office 2016"],$aComputerLevel))
-				{
 					$aMeetsServiceLevel["Office 2016"] = "Yes";
 				}
 				else
 				{
+					$aMeetsServiceLevel["Service Level"] = "No";
+					$aMeetsServiceLevel["Win10"] = "No";
 					$aMeetsServiceLevel["Office 2016"] = "No";
 				}
+				
+				//Dustin - Redundant
+				// if (Meets_Service_Level($aServiceLevels["Win10"],$aComputerLevel))
+				// {
+				// 	$aMeetsServiceLevel["Win10"] = "Yes";
+				// }
+				// else
+				// {
+				// 	$aMeetsServiceLevel["Win10"] = "No";
+				// }
+				// if (Meets_Service_Level($aServiceLevels["Office 2016"],$aComputerLevel))
+				// {
+				// 	$aMeetsServiceLevel["Office 2016"] = "Yes";
+				// }
+				// else
+				// {
+				// 	$aMeetsServiceLevel["Office 2016"] = "No";
+				// }
 
 
-				// unset($aMatches);
-				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iProcessorLine]);
-				// $aComputerLevel['Processor'] =  $aMatches[1];
+				
 			
 				//sometimes the variables have whitespace, this causes problems
 				$strComputerName = trim($strComputerName);
@@ -1004,6 +1012,9 @@ function Meets_Service_Level($aServiceLevel,$aComputerLevel)
 	$aCompareCats = array("HardDrive","RAM", "OSX");
 	// $aNotFindCats = array("Display");
 	
+	//Dustin - Reference
+	// Meets_Service_Level($aServiceLevels["Service Level"],$aComputerLevel)
+
 	foreach ($aServiceLevel as $strTerm => $strValues)
 	{
 			//echo "*****" . $strTerm . "<br />";
@@ -1022,7 +1033,7 @@ function Meets_Service_Level($aServiceLevel,$aComputerLevel)
 				foreach ($aValues as $strValue) //go through each of the values and see if it fits
 				{
 					//echo "Looking for " . $strValue . " in " . $aComputerLevel[$strTerm] . "<br />";
-					if (strripos($aComputerLevel[$strTerm],$strValue) === false)
+					if (strripos($aComputerLevel[$strTerm],$strValue) == false)
 					{
 					}
 					else
@@ -1033,6 +1044,7 @@ function Meets_Service_Level($aServiceLevel,$aComputerLevel)
 				}
 			}
 			
+			//Dustin - Ignoring for now, making sure the processor SLA works
 			// if (in_array($strTerm,$aCompareCats)) //Is this the type of operation to compare values
 			// {
 			// 	$strValue = $aServiceLevel[$strTerm];
