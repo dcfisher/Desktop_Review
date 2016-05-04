@@ -492,7 +492,7 @@ if (file_exists($strTempFile))
 
 				//Dustin - Old 
 				// DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strWebBrowser, $strIESecurityLevel, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strInstall, $strNotes);
-				DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strModel, $strSerialNumber, $strRAM, $strHDD, $strOfficeMatch, $strProcessor, $strJavaVersion, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Win7"], $aMeetsServiceLevel["Office 2016"]);
+				DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strModel, $strSerialNumber, $strRAM, $strHDD, $strOfficeMatch, $strProcessor, $strJavaVersion, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Win10"], $aMeetsServiceLevel["Office 2016"]);
 				
 				
 
@@ -500,7 +500,7 @@ if (file_exists($strTempFile))
 
 				//Dustin - Old
 				// SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, "Yes", "Yes", "Yes", "Yes", $strWebBrowser, $strInstall, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strNotes, $strTech, "N/A", $aComputerLevel['Processor'], $aComputerLevel['HardDrive'], $aComputerLevel['Optical'], $aComputerLevel['RAM'], $aComputerLevel['Graphic'], $aComputerLevel['Display']);
-				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strSerialNumber, $strModel, $strJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Win7"], $aMeetsServiceLevel["Office 2016"], $strTech, "N/A", $strProcessor, $strHDD, $strRAM, $strOfficeMatch);
+				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strSerialNumber, $strModel, $strJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Win10"], $aMeetsServiceLevel["Office 2016"], $strTech, "N/A", $strProcessor, $strHDD, $strRAM, $strOfficeMatch);
 
 				
 			break;
