@@ -1004,82 +1004,101 @@ function Search_File($strSearchTerm,$aLines)
 	return $iTermRow;
 }
 
-function Meets_Service_Level($aServiceLevel,$aComputerLevel)
+//Dustin - Reference
+// Meets_Service_Level($aServiceLevels["Service Level"],$aComputerLevel)
+
+function Meets_Service_Level($slaDoc,$findMe)
 {
-	//echo "------------------------------------------------------<br />";
-	$boolMeetsLevel = true;
-	$aSearchCats = array("Processor");
-	$aCompareCats = array("HardDrive","RAM", "OSX");
-	// $aNotFindCats = array("Display");
-	
-	//Dustin - Reference
-	// Meets_Service_Level($aServiceLevels["Service Level"],$aComputerLevel)
+	$processorArray = array(AMD A4,AMD A6,AMD A8,AMD A10,Core(TM)2,Core(TM)2 Quad,Pentium(R) 4,Pentium(R) D,Pentium(R),Core(TM) i3,Core(TM) i5,Core(TM) i7,Pentium(R) Dual,Turion(tm) 64,AMD Phenom(tm),Intel Xeon,Atom(TM),Sempron(tm),Athlon(tm) 64,Athlon(tm) 64 Dual Core,Athlon(tm) Dual Core,Pentium(R) M,Turion(tm) X2,Turion(tm) 64 X2, Celeron(R), Athlon(tm) II,Intel(R) Xeon(R), Core 2);
 
-	foreach ($aServiceLevel as $strTerm => $strValues)
+	foreach ($processorArray as $value)
 	{
-			//echo "*****" . $strTerm . "<br />";
-		if (!isset($aComputerLevel[$strTerm]) || $aComputerLevel[$strTerm] == -1)
+		if(strripos($findMe[$key],$value))
 		{
-			$boolMeetsLevel = false;  //The computer does not have the device defined....This machine must be a piece of crap
+			return true;
 		}
-		else
-		{
-			$boolRequirementMet = false;
-			//Determine which type of check to make
-			if (in_array($strTerm,$aSearchCats))  //Is this the type of operation to search for a term
-			{
-				//Break up the values into an array
-				$aValues = explode(',',$strValues);
-				foreach ($aValues as $strValue) //go through each of the values and see if it fits
-				{
-					//echo "Looking for " . $strValue . " in " . $aComputerLevel[$strTerm] . "<br />";
-					if (strripos($aComputerLevel[$strTerm],$strValue) == false)
-					{
-					}
-					else
-					{
-						//echo "Found: " . $strValue . "<br />";
-						$boolRequirementMet = true;
-					}
-				}
-			}
-			
-			//Dustin - Ignoring for now, making sure the processor SLA works
-			// if (in_array($strTerm,$aCompareCats)) //Is this the type of operation to compare values
-			// {
-			// 	$strValue = $aServiceLevel[$strTerm];
-
-			// 	//echo "Term: " . $strTerm . " - " . $aComputerLevel[$strTerm] . " >= " . $strValue . "<br />";
-			// 	if ($aComputerLevel[$strTerm] >= $strValue)
-			// 	{
-			// 		$boolRequirementMet = true;
-			// 	}
-			// }
-			
-			// Dustin - 
-			// if (in_array($strTerm,$aNotFindCats)) //Is this the type of operation where we do not want to find drives
-			// {
-				
-			// 	$boolRequirementMet = true;
-			// 	//Break up the values into an array
-			// 	$aValues = explode(',',$strValues);
-			// 	foreach ($aValues as $strValue) //go through each of the values and see if it fits
-			// 	{
-			// 		if (strripos($aComputerLevel[$strTerm],$strValue))
-			// 		{
-			// 			$boolRequirementMet = false;
-			// 		}
-			// 	}
-			// }
-			// if (!$boolRequirementMet)
-			// {
-			// 	$boolMeetsLevel = false; ////Epic Fail
-			// }
-			
-		}
+		
 	}
-	return $boolMeetsLevel;
+	return false;
 }
+
+
+// function Meets_Service_Level($aServiceLevel,$aComputerLevel)
+// {
+// 	//echo "------------------------------------------------------<br />";
+// 	$boolMeetsLevel = true;
+// 	$aSearchCats = array("Processor");
+// 	$aCompareCats = array("HardDrive","RAM", "OSX");
+// 	// $aNotFindCats = array("Display");
+	
+// 	//Dustin - Reference
+// 	// Meets_Service_Level($aServiceLevels["Service Level"],$aComputerLevel)
+
+// 	foreach ($aServiceLevel as $strTerm => $strValues)
+// 	{
+// 			//echo "*****" . $strTerm . "<br />";
+// 		if (!isset($aComputerLevel[$strTerm]) || $aComputerLevel[$strTerm] == -1)
+// 		{
+// 			$boolMeetsLevel = false;  //The computer does not have the device defined....This machine must be a piece of crap
+// 		}
+// 		else
+// 		{
+// 			$boolRequirementMet = false;
+// 			//Determine which type of check to make
+// 			if (in_array($strTerm,$aSearchCats))  //Is this the type of operation to search for a term
+// 			{
+// 				//Break up the values into an array
+// 				$aValues = explode(',',$strValues);
+// 				foreach ($aValues as $strValue) //go through each of the values and see if it fits
+// 				{
+// 					//echo "Looking for " . $strValue . " in " . $aComputerLevel[$strTerm] . "<br />";
+// 					if (strripos($aComputerLevel[$strTerm],$strValue) == false)
+// 					{
+// 					}
+// 					else
+// 					{
+// 						//echo "Found: " . $strValue . "<br />";
+// 						$boolRequirementMet = true;
+// 					}
+// 				}
+// 			}
+			
+// 			//Dustin - Ignoring for now, making sure the processor SLA works
+// 			// if (in_array($strTerm,$aCompareCats)) //Is this the type of operation to compare values
+// 			// {
+// 			// 	$strValue = $aServiceLevel[$strTerm];
+
+// 			// 	//echo "Term: " . $strTerm . " - " . $aComputerLevel[$strTerm] . " >= " . $strValue . "<br />";
+// 			// 	if ($aComputerLevel[$strTerm] >= $strValue)
+// 			// 	{
+// 			// 		$boolRequirementMet = true;
+// 			// 	}
+// 			// }
+			
+// 			// Dustin - 
+// 			// if (in_array($strTerm,$aNotFindCats)) //Is this the type of operation where we do not want to find drives
+// 			// {
+				
+// 			// 	$boolRequirementMet = true;
+// 			// 	//Break up the values into an array
+// 			// 	$aValues = explode(',',$strValues);
+// 			// 	foreach ($aValues as $strValue) //go through each of the values and see if it fits
+// 			// 	{
+// 			// 		if (strripos($aComputerLevel[$strTerm],$strValue))
+// 			// 		{
+// 			// 			$boolRequirementMet = false;
+// 			// 		}
+// 			// 	}
+// 			// }
+// 			// if (!$boolRequirementMet)
+// 			// {
+// 			// 	$boolMeetsLevel = false; ////Epic Fail
+// 			// }
+			
+// 		}
+// 	}
+// 	return $boolMeetsLevel;
+// }
 
 function CleanUpNotes($strNotes)
 {
