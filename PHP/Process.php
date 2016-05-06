@@ -1009,11 +1009,11 @@ function Search_File($strSearchTerm,$aLines)
 
 function Meets_Service_Level($slaDoc,$findMe)
 {
-	$processorArray = array(AMD A4,AMD A6,AMD A8,AMD A10,Core(TM)2,Core(TM)2 Quad,Pentium(R) 4,Pentium(R) D,Pentium(R),Core(TM) i3,Core(TM) i5,Core(TM) i7,Pentium(R) Dual,Turion(tm) 64,AMD Phenom(tm),Intel Xeon,Atom(TM),Sempron(tm),Athlon(tm) 64,Athlon(tm) 64 Dual Core,Athlon(tm) Dual Core,Pentium(R) M,Turion(tm) X2,Turion(tm) 64 X2, Celeron(R), Athlon(tm) II,Intel(R) Xeon(R), Core 2);
+	$processorArray = array("AMD A4","AMD A6","AMD A8","AMD A10","Core(TM)2","Core(TM)2 Quad","Pentium(R) 4","Pentium(R) D","Pentium®","Core(TM) i3","Core(TM) i5","Core(TM) i7","Pentium(R) Dual","Turion(tm) 64","AMD Phenom(tm)","Intel Xeon","Atom(TM)","Sempron(tm)","Athlon(tm) 64","Athlon(tm) 64 Dual Core","Athlon(tm) Dual Core","Pentium(R) M","Turion(tm) X2","Turion(tm) 64 X2", "Celeron(R)", "Athlon(tm) II","Intel(R) Xeon(R)", "Core 2");
 
 	foreach ($processorArray as $value)
 	{
-		if(strripos($findMe[$key],$value))
+		if(strripos($findMe['Processor'],$value))
 		{
 			return true;
 		}
