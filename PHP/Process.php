@@ -163,7 +163,11 @@ if (file_exists($strTempFile))
 
 				unset($aMatches);
 				preg_match("/Java Version: (.*)/",$aMainLines[$iJavaVersion],$aMatches);
-				$strJavaVersion = $aMatches[1];
+				if (isset($aMatches[1]) 
+				{
+					$strJavaVersion = $aMatches[1];
+				}
+					
 
 				//Look for the Type of Windows
 				if (Search_File("Version 10.0", $aMainLines) != -1)
@@ -339,7 +343,10 @@ if (file_exists($strTempFile))
 					$iJavaVersion = Search_File("java version",$aMainLines);
 					unset($Matches);
 					preg_match("/java version (.*)/",$aMainLines[$iJavaVersion], $aMatches);
-					$strJavaVersion = $aMatches[1];
+					if (isset($aMatches[1]) 
+					{
+						$strJavaVersion = $aMatches[1];
+					}
 					$strJavaVersion = trim($strJavaVersion,'"');
 
 					$iModel = Search_File("Model Name:",$aMainLines);
