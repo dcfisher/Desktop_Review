@@ -1,7 +1,5 @@
 <?php
 include_once('info.php');
-//Dustin - Old sql injection, in case I screw up again.
-// function SaveRecordInDB($strFName, $strLName, $strDepartment, $strComputerName, $strLocation, $strDomain, $strWindowsVersion, $strWindowsUpdate, $strAutomaticUpdates, $strVirusDefinitions, $strSpywareScan, $strWebBrowser, $strInstallations, $strMeetServiceLevel, $strVistaCompatible, $strOffice2007Compatible, $strComments, $strTech, $LionCompatible, $Processor, $HardDrive, $Optical, $RAM, $Graphics, $Resolution)
 function SaveRecordInDB($strFName, $strLName, $strDepartment, $strComputerName, $strLocation, $strDomain, $strWindowsVersion, $strManufacturer, $strSerialNumber, $strModel, $strJavaVersion, $strMeetServiceLevel, $strWindowsCompatible, $strOfficeCompatible, $strTech, $LionCompatible, $Processor, $HardDrive, $RAM, $OfficeMatch)
 {
 	/*
@@ -35,11 +33,6 @@ function SaveRecordInDB($strFName, $strLName, $strDepartment, $strComputerName, 
 	
 	$strComputerName = trim($strComputerName);
 	$timestamp = date('l jS \of F Y h:i:s A');
-	//Set values if missing
-	// if ($strWebBrowser == "")
-	// {
-	// 	$strWebBrowser = "N/A";
-	// }
 	
 	if ($strWindowsCompatible == "")
 	{
