@@ -11,12 +11,8 @@ $strDepartmentName = mysql_real_escape_string($_POST['frmDepartment']);
 $strRoomNum = mysql_real_escape_string($_POST['frmRoom']);
 $strLocationName = mysql_real_escape_string($_POST['frmLocation']) . " " . $strRoomNum;
 
-//Dustin - Removed because unnecessary
-// $strNotes = mysql_real_escape_string(CleanUpNotes($_POST['frmNotes']));
 $strTech = mysql_real_escape_string($_POST['frmTech']);
 
-//Dustin - Removed because we don't care what is installed
-// $strInstall = mysql_real_escape_string(CleanUpNotes($_POST['frmInstallNotes']));
 
 if (empty($strEmployeeName)){ //is employee name empty?
 	header('Location: ./errors/Error_EmptyEmployee.html');
@@ -51,14 +47,7 @@ $strDomain = "None";
 $strComputerName = "";
 $strWindows = "";
 
-//Dustin - Removing because unnecessary 
-//$strAutoUpdates = "Previously, Auto Updates Were Turned Off";
-//$strWebBrowser = "Other";
-//$strIESecurityLevel = "Custom";
-// $boolCDRom = false;
-// $boolDVDRom = false;
-// $iDisplayLine = -1;
-// $iGraphicLine = -1;
+
 
 
 $iProcessorLine = -1;
@@ -158,19 +147,6 @@ if (file_exists($strTempFile))
 				}
 				
 
-				//Dustin - Save for later if my other method doesn't work
-				// foreach($aMainLines as $row) 
-				// {
-    			//  $components = explode(':', $row, 2);
-    			// 	$arr[$var[0]] = $var[1];
-				// }
-
-
-				//Dustin - Removing because OPENNET isn't a thing anymore
-				// if (Search_File("opennet",$aMainLines) != -1)
-				// {
-				// 	$strDomain = "OPENNET";
-				// }
 							
 				//Lets get the name, SerialNumber, Manufacturer, Model, System Type
 				$iNameLine = Search_File("System Name:", $aMainLines);
@@ -251,36 +227,7 @@ if (file_exists($strTempFile))
 					$strWindows = "XP";
 				}
 				
-				//Dustin - Removing because unnecessary 
-				// if (Search_File("currently has automatic updates enabled", $aMainLines) != -1)
-				// {
-				// 	$strAutoUpdates = "Previously, Auto Updates Were Turned On";
-				// }
-
-				// if (Search_File("FIREFOX.EXE", $aMainLines) != -1)
-				// {
-				// 	$strWebBrowser = "Firefox";
-				// }
-				
-				// if (Search_File("IEXPLORE.exe", $aMainLines) != -1)
-				// {
-				// 	$strWebBrowser = "Internet Explorer";
-				// }
-				
-				// if (Search_File("IESECURITY:69632",$aMainLines) != -1)
-				// {
-				// 	$strIESecurityLevel = "Medium";
-				// }
-				
-				// if (Search_File("IESECURITY:70912",$aMainLines) != -1)
-				// {
-				// 	$strIESecurityLevel = "Medium-High";
-				// }
-				
-				// if (Search_File("IESECURITY:73728",$aMainLines) != -1)
-				// {
-				// 	$strIESecurityLevel = "High";
-				// }
+		
 					
 
 				//Now we need to get information about the Processor
@@ -311,59 +258,7 @@ if (file_exists($strTempFile))
 				preg_match("/Java Version: (.*)/",$aMainLines[$iJavaVersion],$aMatches);
 				$strJavaVersion = $aMatches[1];
 
-				//Dustin - Not sure if this is important for SLA. I think it's doing line 293-295
-				// unset($aMatches);
-				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iProcessorLine]);
-				// $aComputerLevel['Processor'] =  $aMatches[1];
-
-				//Dustin - Removing because unnecessary - This is the resolution
-				// $iDisplayLine = Search_File("Current Mode:", $aMainLines);
-				// $iGraphicLine = Search_File("Chip type:", $aMainLines);
 				
-
-				//Dustin - Removing because unnecessary 
-				// $aComputerLevel['Optical'] = "";
-				
-				// if (Search_File(" DVD",$aMainLines) != -1)
-				// {
-				// 	$aComputerLevel['Optical'] = "DVD";
-				// if (Search_File(" CD", $aMainLines) != -1)
-				// {
-				// 	$aComputerLevel['Optical'] .= ", CD";
-				// }
-				// }
-				// elseif (Search_File(" CD", $aMainLines) != -1)
-				// {
-				// 	$aComputerLevel['Optical'] = "CD";
-				// }
-				
-				// // Get the size of the hard drive from this line
-				// unset($aMatches);
-				// preg_match('/([0-9\.]+)/',$aMainLines[$iHardDriveLine],$aMatches);
-				// $aComputerLevel['HardDrive'] = $aMatches[1];
-				
-				// //Get the Amount of Ram in the Computer
-				// unset($aMatches);
-				// preg_match('/([0-9\.]+)/',$aMainLines[$iMemoryLine],$aMatches);
-				// $aComputerLevel['RAM'] = $aMatches[1];
-				
-				// Dustin - Removing because unnecessary 
-				// unset($aMatches);
-				// $aComputerLevel['Display']=$iDisplayLine;
-			
-				// Dustin - Removing because unnecessary 
-				// //Deal with the Graphics Memory
-				// unset($aMatches);
-				// preg_match('/([0-9\.]+)/',$aMainLines[$iGraphicLine],$aMatches);
-		
-				//HACK ALERT
-				//The following is a total hack. Some of the Core i series processors report having "n/a" memory. As you know, n/a is not a number, which is unfortunate. I don't know of another way to check how much VRAM they have so I will give them the benifit of the doubt and assume they have enough to be Vista+ compaitible.
-				// if ($aMainLines[$iGraphicLine] == "Display Memory: n/a");
-				// {
-				// 	$aMatches[1] = 1000;
-				// }
-				// //End Hack. That made me a tad sick.
-				// $aComputerLevel['Graphic'] = $aMatches[1];
 				
 				//Run the three Checks
 				if (Meets_Service_Level($aServiceLevels["Service Level"],$aComputerLevel))
@@ -379,59 +274,14 @@ if (file_exists($strTempFile))
 					$aMeetsServiceLevel["Office 2016"] = "No";
 				}
 				
-				//Dustin - Redundant
-				// if (Meets_Service_Level($aServiceLevels["Win10"],$aComputerLevel))
-				// {
-				// 	$aMeetsServiceLevel["Win10"] = "Yes";
-				// }
-				// else
-				// {
-				// 	$aMeetsServiceLevel["Win10"] = "No";
-				// }
-				// if (Meets_Service_Level($aServiceLevels["Office 2016"],$aComputerLevel))
-				// {
-				// 	$aMeetsServiceLevel["Office 2016"] = "Yes";
-				// }
-				// else
-				// {
-				// 	$aMeetsServiceLevel["Office 2016"] = "No";
-				// }
-
-
 				
 			
 				//sometimes the variables have whitespace, this causes problems
 				$strComputerName = trim($strComputerName);
 				$strLocationName = trim($strLocationName);
 				$strDomain = trim($strDomain);
-				//Get the size of the hard drive from this line
-				// unset($aMatches);
-				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iHardDriveLine]);
-				// $aComputerLevel['HardDrive'] = $aMatches[1];
 				
-				// //Get the Amount of Ram in the Computer
-				// unset($aMatches);
-				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iMemoryLine]);
-				// $aComputerLevel['RAM'] = $aMatches[1];
-				// unset($aMatches);
-				
-				// unset($aMatches);
-				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iDisplayLine]);
-				// $aComputerLevel['Display']= $aMatches[1];
-
-				// unset($aMatches);
-				// list($junk, $aMatches[1]) = explode(': ',$aMainLines[$iGraphicLine]);			
-				// $aComputerLevel['Graphic'] = $aMatches[1];
-				
-				//Dustin - Removing because unnecessary 
-				//Exile OPENNET computers
-				// if ($strDomain == "OPENNET"){
-				// 		header('Location: ./errors/Error_OPENNET.html');
-				// 		exit();
-				// }
-					
 				//Check if duplicate record exists by ComputerName, Domain and Current Year
-				//$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . $strComputerName . "' AND Domain='" . $strDomain . "' AND ReviewYear='" . date("Y") ."'";
 				$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . addslashes($strComputerName) . "' AND ReviewYear='" . date("Y") ."' AND FName='" . $strFName . "' AND LName='" . $strLName . "' AND Location='" . $strLocationName . "'";
 				//echo $query_string . "<br>";
 				$query = mysql_query($query_string);	
@@ -466,13 +316,6 @@ if (file_exists($strTempFile))
 						echo "<input type='hidden' name='MeetsVSLA' value='" . $aMeetsServiceLevel["Vista Level"] . "'>";
 						echo "<input type='hidden' name='MeetsOSLA' value='" . $aMeetsServiceLevel["Office 2013"] . "'>";
 						
-						//Dustin - Removing because unnecessary 
-						// echo "<input type='hidden' name='Install' value='" . $strInstall . "'>";
-						// echo "<input type='hidden' name='Notes' value='" . $strNotes . "'>";
-						// echo "<input type='hidden' name='WindowsUpdate' value='Yes'>";
-						// echo "<input type='hidden' name='AutomaticUpdates' value='Yes'>";
-						// echo "<input type='hidden' name='VirusDefinitions' value='Yes'>";
-						// echo "<input type='hidden' name='SpywareScan' value='Yes'>";
 						echo "<input type='hidden' name='Tech' value='" . $strTech . "'>";
 						echo "<input type='hidden' name='ComputerName' value='" . $strComputerName . "'>";
 						echo "<input type='hidden' name='Domain' value='" . $strDomain . "'>";
@@ -491,15 +334,8 @@ if (file_exists($strTempFile))
 				//And now for something completely different. Lets make a web page!
 
 				//Dustin - Old 
-				// DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strWebBrowser, $strIESecurityLevel, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strInstall, $strNotes);
 				DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strModel, $strSerialNumber, $strRAM, $strHDD, $strOfficeMatch, $strProcessor, $strJavaVersion, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Win10"], $aMeetsServiceLevel["Office 2016"]);
 				
-				
-
-				//Run the SQL Statement
-
-				//Dustin - Old
-				// SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, "Yes", "Yes", "Yes", "Yes", $strWebBrowser, $strInstall, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Vista Level"], $aMeetsServiceLevel["Office 2013"], $strNotes, $strTech, "N/A", $aComputerLevel['Processor'], $aComputerLevel['HardDrive'], $aComputerLevel['Optical'], $aComputerLevel['RAM'], $aComputerLevel['Graphic'], $aComputerLevel['Display']);
 				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strSerialNumber, $strModel, $strJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Win10"], $aMeetsServiceLevel["Office 2016"], $strTech, "N/A", $strProcessor, $strHDD, $strRAM, $strOfficeMatch);
 
 				
@@ -510,403 +346,101 @@ if (file_exists($strTempFile))
 				$strOS = "Too Old";
 				$strProcessor = "Too Old";
 				$iHardDrive = 0;
-				// $strOptical = "";
 				$iMemory = 0;
 				$strComputerName = "";
-				// $strSav = "No";
-				$OSXVer = "0";
-				if (strripos($aMainLines[0],"10.10")) //Fun with Yosemite
-				{
-					$VerIndex = strripos($aMainLines[0],"10.10");
-					$OSXVer = substr($aMainLines[0], $VerIndex, 7);
-					$OSXVer = trim($OSXVer);
-					$strOS = "10.10 Yosemite (" . $OSXVer . ")";
-					//$aMeetsServiceLevel["LionCompatible"] = "Yes"; //Dont even bother testing
-					
-					//Get the Processor
-					$iProcessorLine = Search_File("Processor Name:", $aMainLines);
-					unset($aMatches);
-					if ($iProcessorLine ==-1)
-					{
-						$iProcessorLine = Search_File("CPU Type:", $aMainLines);
-						preg_match("/Type: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					else
-					{
-						preg_match("/Name: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					$strProcessor = $aMatches[1];
-					
-					//Check for a Computer Name
-					$iNameLine  = Search_File("Computer Name:" , $aMainLines);
-					unset($aMatches);
-					if ($iNameLine > 0)
-					{
-						preg_match("/Name: (.*)/", $aMainLines[$iNameLine],$aMatches);
-						$strComputerName = $aMatches[1];
-					}
-					
-					//Check for Ram Size
-					$iMemoryLine = Search_File(" Memory:", $aMainLines);
-					unset($aMatches);
-					preg_match("/Memory: ([0-9]+).*(GB|MB)/", $aMainLines[$iMemoryLine], $aMatches);
-					$iMemory = $aMatches[1];
-					if ($aMatches[2] == "GB")
-					{
-						$iMemory = $iMemory * 1000;
-					}
-					
-					//Get the Hard Drive
-					$iDriveLine = Search_File("/dev/",$aMainLines);
-					unset($Matches);
-					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
-					$iHardDrive = $aMatches[1];
-			
-					//Dustin - Removed because not needed
-					// //Get Info About the Optical Drive
-					// $strOptical = "CD";
-					// if (Search_File("DVD",$aMainLines) != -1)
-					// {
-					// 	$strOptical = "DVD";
-					// }
-				}
-				else if (strripos($aMainLines[0],"10.9")) //Fun with Mavericks
-				{
-					$VerIndex = strripos($aMainLines[0],"10.9");
-					$OSXVer = substr($aMainLines[0], $VerIndex, 7);
-					$OSXVer = trim($OSXVer);
-					$strOS = "10.9 Mavericks (" . $OSXVer . ")";
-					//$aMeetsServiceLevel["LionCompatible"] = "Yes"; //Dont even bother testing
-					
-					//Get the Processor
-					$iProcessorLine = Search_File("Processor Name:", $aMainLines);
-					unset($aMatches);
-					if ($iProcessorLine ==-1)
-					{
-						$iProcessorLine = Search_File("CPU Type:", $aMainLines);
-						preg_match("/Type: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					else
-					{
-						preg_match("/Name: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					$strProcessor = $aMatches[1];
-					
-					//Check for a Computer Name
-					$iNameLine  = Search_File("Computer Name:" , $aMainLines);
-					unset($aMatches);
-					if ($iNameLine > 0)
-					{
-						preg_match("/Name: (.*)/", $aMainLines[$iNameLine],$aMatches);
-						$strComputerName = $aMatches[1];
-					}
-					
-					//Check for Ram Size
-					$iMemoryLine = Search_File(" Memory:", $aMainLines);
-					unset($aMatches);
-					preg_match("/Memory: ([0-9]+).*(GB|MB)/", $aMainLines[$iMemoryLine], $aMatches);
-					$iMemory = $aMatches[1];
-					if ($aMatches[2] == "GB")
-					{
-						$iMemory = $iMemory * 1000;
-					}
-					
-					//Get the Hard Drive
-					$iDriveLine = Search_File("/dev/",$aMainLines);
-					unset($Matches);
-					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
-					$iHardDrive = $aMatches[1];
-			
-					//Dustin - No longer needed
-					// //Get Info About the Optical Drive
-					// $strOptical = "CD";
-					// if (Search_File("DVD",$aMainLines) != -1)
-					// {
-					// 	$strOptical = "DVD";
-					// }
-				}
-				else if (strripos($aMainLines[0],"10.8")) //Fun with Mountain Lion
-				{
-					$VerIndex = strripos($aMainLines[0],"10.8");
-					$OSXVer = substr($aMainLines[0], $VerIndex, 7);
-					$OSXVer = trim($OSXVer);
-					$strOS = "10.8 Mountian Lion (" . $OSXVer . ")";
-					//$aMeetsServiceLevel["LionCompatible"] = "Yes"; //Dont even bother testing
-					
-					//Get the Processor
-					$iProcessorLine = Search_File("Processor Name:", $aMainLines);
-					unset($aMatches);
-					if ($iProcessorLine ==-1)
-					{
-						$iProcessorLine = Search_File("CPU Type:", $aMainLines);
-						preg_match("/Type: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					else
-					{
-						preg_match("/Name: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					$strProcessor = $aMatches[1];
-					
-					//Check for a Computer Name
-					$iNameLine  = Search_File("Computer Name:" , $aMainLines);
-					unset($aMatches);
-					if ($iNameLine > 0)
-					{
-						preg_match("/Name: (.*)/", $aMainLines[$iNameLine],$aMatches);
-						$strComputerName = $aMatches[1];
-					}
-					
-					//Check for Ram Size
-					$iMemoryLine = Search_File(" Memory:", $aMainLines);
-					unset($aMatches);
-					preg_match("/Memory: ([0-9]+).*(GB|MB)/", $aMainLines[$iMemoryLine], $aMatches);
-					$iMemory = $aMatches[1];
-					if ($aMatches[2] == "GB")
-					{
-						$iMemory = $iMemory * 1000;
-					}
-					
-					//Get the Hard Drive
-					$iDriveLine = Search_File("/dev/",$aMainLines);
-					unset($Matches);
-					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
-					$iHardDrive = $aMatches[1];
-			
-					//Dustin - No longer needed
-					// //Get Info About the Optical Drive
-					// $strOptical = "CD";
-					// if (Search_File("DVD",$aMainLines) != -1)
-					// {
-					// 	$strOptical = "DVD";
-					// }
-				}
+				$strSerNum = "None";
+				$iSerNumLine = -1;
+				$boolMemCheck = false;
+				$strProcSpeed = "None";
+				$iSpeedLine = -1;
+				$iJavaLine = -1;
+				$strJavaVer = "None";
+				
 
-				else if (strripos($aMainLines[0],"10.7")) //Fun with Lion
-				{
-					$VerIndex = strripos($aMainLines[0],"10.7");
-					$OSXVer = substr($aMainLines[0], $VerIndex, 7);
-					$OSXVer = trim($OSXVer);
-					$strOS = "10.7 Lion (" . $OSXVer . ")";
-					//$aMeetsServiceLevel["LionCompatible"] = "Yes"; //Dont even bother testing
-					
-					//Get the Processor
-					$iProcessorLine = Search_File("Processor Name:", $aMainLines);
-					unset($aMatches);
-					if ($iProcessorLine ==-1)
-					{
-						$iProcessorLine = Search_File("CPU Type:", $aMainLines);
-						preg_match("/Type: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					else
-					{
-						preg_match("/Name: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					$strProcessor = $aMatches[1];
-					
-					//Check for a Computer Name
-					$iNameLine  = Search_File("Computer Name:" , $aMainLines);
-					unset($aMatches);
-					if ($iNameLine > 0)
-					{
-						preg_match("/Name: (.*)/", $aMainLines[$iNameLine],$aMatches);
-						$strComputerName = $aMatches[1];
-					}
-					
-					//Check for Ram Size
-					$iMemoryLine = Search_File(" Memory:", $aMainLines);
-					unset($aMatches);
-					preg_match("/Memory: ([0-9]+).*(GB|MB)/", $aMainLines[$iMemoryLine], $aMatches);
-					$iMemory = $aMatches[1];
-					if ($aMatches[2] == "GB")
-					{
-						$iMemory = $iMemory * 1000;
-					}
-					
-					//Get the Hard Drive
-					$iDriveLine = Search_File("/dev/",$aMainLines);
-					unset($Matches);
-					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
-					$iHardDrive = $aMatches[1];
-			
-					//Dustin - Not needed
-					// //Get Info About the Optical Drive
-					// $strOptical = "CD";
-					// if (Search_File("DVD",$aMainLines) != -1)
-					// {
-					// 	$strOptical = "DVD";
-					// }
-				}
-				else if (strripos($aMainLines[0],"10.6")) //Fun with Snow Leopard
-				{
-					//Get specific OSX version
-					$VerIndex = strripos($aMainLines[0],"10.6");
-					$OSXVer = substr($aMainLines[0], $VerIndex, 7);
-					$OSXVer = trim($OSXVer);
-					$strOS = "10.6 Snow Leopard (" . $OSXVer . ")";
-					
-					//Get the Processor
-					$iProcessorLine = Search_File("Processor Name:", $aMainLines);
-					unset($aMatches);
-					if ($iProcessorLine ==-1)
-					{
-						$iProcessorLine = Search_File("CPU Type:", $aMainLines);
-						preg_match("/Type: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					else
-					{
-						preg_match("/Name: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					$strProcessor = $aMatches[1];
-					
-					//Check for a Computer Name
-					$iNameLine  = Search_File("Computer Name:" , $aMainLines);
-					unset($aMatches);
-					if ($iNameLine > 0)
-					{
-						preg_match("/Name: (.*)/", $aMainLines[$iNameLine],$aMatches);
-						$strComputerName = $aMatches[1];
-					}
-					
-					//Check for Ram Size
-					$iMemoryLine = Search_File(" Memory:", $aMainLines);
-					unset($aMatches);
-					preg_match("/Memory: ([0-9]+).*(GB|MB)/", $aMainLines[$iMemoryLine], $aMatches);
-					$iMemory = $aMatches[1];
-					if ($aMatches[2] == "GB")
-					{
-						$iMemory = $iMemory * 1000;
-					}
-					
-					//Get the Hard Drive
-					$iDriveLine = Search_File("/dev/",$aMainLines);
-					unset($Matches);
-					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
-					$iHardDrive = $aMatches[1];
-			
-					//Dustin - Not needed
-					// //Get Info About the Optical Drive
-					// $strOptical = "CD";
-					// if (Search_File("DVD",$aMainLines) != -1)
-					// {
-					// 	$strOptical = "DVD";
-					// }
-				}
-				else if (strripos($aMainLines[0],"10.5")) //Fun with Leopard, This OS is no longer supported 										
-				{										  //The memory section was removed to cause a failure
-					//Get detailed OS version
-					$VerIndex = strripos($aMainLines[0],"10.5");
-					$OSXVer = substr($aMainLines[0], $VerIndex, 7);
-					$OSXVer = trim($OSXVer);
-					$strOS = "10.5 Leopard (" . $OSXVer . ")";
-					
-					//Get the Processor
-					$iProcessorLine = Search_File("Processor Name:", $aMainLines);
-					unset($aMatches);
-					if ($iProcessorLine ==-1)
-					{
-						$iProcessorLine = Search_File("CPU Type:", $aMainLines);
-						preg_match("/Type: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					else
-					{
-						preg_match("/Name: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					$strProcessor = $aMatches[1];
-					
-					//Check for a Computer Name
-					$iNameLine  = Search_File("Computer Name:" , $aMainLines);
-					unset($aMatches);
-					if ($iNameLine > 0)
-					{
-						preg_match("/Name: (.*)/", $aMainLines[$iNameLine],$aMatches);
-						$strComputerName = $aMatches[1];
-					}
-					
-					//Get the Hard Drive
-					$iDriveLine = Search_File("/dev/",$aMainLines);
-					unset($Matches);
-					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
-					$iHardDrive = $aMatches[1];
-					
-					//Dustin - Not needed
-					// //Get Info About the Optical Drive
-					// $strOptical = "CD";
-					// if (Search_File("DVD",$aMainLines) != -1)
-					// {
-					// 	$strOptical = "DVD";	
-					// }	
-				}
-				else if (strripos($aMainLines[0],"10.4")) //Fun with Tiger, This OS is no longer supported 										
-				{										  //The memory section was removed to cause a failure
-					//Get detailed OS version
-					$VerIndex = strripos($aMainLines[0],"10.4");
-					$OSXVer = substr($aMainLines[0], $VerIndex, 7);
-					$OSXVer = trim($OSXVer);
-					$strOS = "10.4 Tiger (" . $OSXVer . ")";
-					
-					//Get the Processor
-					$iProcessorLine = Search_File("CPU Type:", $aMainLines);
-					unset($aMatches);
-					if ($iProcessorLine ==-1)
-					{
-						$iProcessorLine = Search_File("Processor Name:", $aMainLines);
-						preg_match("/Name: ([^\(\)]+)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					else
-					{
-						preg_match("/Type: ([^\(\)]+)/",$aMainLines[$iProcessorLine],$aMatches);
-					}
-					$strProcessor = $aMatches[1];
-					
-					//Check for a Computer Name
-					$iNameLine  = Search_File("Machine Name:" , $aMainLines);
-					unset($aMatches);
-					if ($iNameLine > 0)
-					{
-						preg_match("/Name: (.*)/", $aMainLines[$iNameLine],$aMatches);
-						$strComputerName = $aMatches[1];
-					}
-					
-					//Get the Hard Drive
-					$iDriveLine = Search_File("/dev/",$aMainLines);
-					unset($Matches);
-					preg_match("/.*?(\s+[0-9][0-9]+).*/",$aMainLines[$iDriveLine], $aMatches);
-					$iHardDrive = $aMatches[1];
-					
-					//Dustin - We don't care if there's a DVD drive anymore
-					// //Get Info About the Optical Drive
-					// $strOptical = "CD";
-					// if (Search_File("DVD",$aMainLines) != -1)
-					// {
-					// 	$strOptical = "DVD";			
-					// }
-				}
-				
-				//Dustin - Just setting it to yes so it's useless
-				// //Check for Symantec Running on this Computer
-				// if (Search_File("SAV RUN",$aMainLines) != -1)
-				// {
-				// 	$strSav = "Yes";
-				// }
-				
-				$aComputerLevel["Processor"] = $strProcessor;
-				$aComputerLevel["RAM"] = $iMemory;
-				$aComputerLevel["HardDrive"] = $iHardDrive;
-				$aComputerLevel["OSX"] = $OSXVer;
 
-				//Dustin - Removing because unnecessary 
-				// $aComputerLevel["Optical"] = $strOptical;
-				
-				if (Meets_Service_Level($aServiceLevels["Mac 2009"],$aComputerLevel))
-				{		
-					$aMeetsServiceLevel["Mac 2009"] = "Yes";
-					$aMeetsServiceLevel["LionCompatible"] = "Yes";
-				}
-				else
+
+				if (strripos($aMainLines[0],"10.11") || strripos($aMainLines[0],"10.10") || strripos($aMainLines[0],"10.9") || strripos($aMainLines[0],"10.8") || strripos($aMainLines[0],"10.7") || strripos($aMainLines[0],"10.6")) //Fun with Yosemite
 				{
-					$aMeetsServiceLevel["Mac 2009"] = "No";
-					$aMeetsServiceLevel["LionCompatible"] = "No";
+
+					$VerIndex = strripos($aMainLines[0],"10.");
+					$strOS = substr($aMainLines[0], $VerIndex - 3, 7);
+					$strOS = trim($strOS);
+					
+					//Get the Processor
+					$iProcessorLine = Search_File("Processor Name:", $aMainLines);
+					unset($aMatches);
+					preg_match("/Processor Name: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
+					$strProcessor = $aMatches[1];
+					$aComputerLevel['Processor'] = $strProcessor;
+					
+					//Check for a Computer Name
+					$iNameLine  = Search_File("Computer Name:" , $aMainLines);
+					unset($aMatches);
+					if ($iNameLine > 0)
+					{
+						preg_match("/Computer Name: (.*)/", $aMainLines[$iNameLine],$aMatches);
+						$strComputerName = $aMatches[1];
+					}
+					
+					//Check for Ram Size
+					$iMemoryLine = Search_File("Memory:", $aMainLines);
+					unset($aMatches);
+					preg_match("/Memory: ([0-9]+).*(GB|MB)/", $aMainLines[$iMemoryLine], $aMatches);
+					$iMemory = $aMatches[1];
+					
+					if($aMatches[1] >= 2)
+					{
+						$boolMemCheck = true;
+					}
+					$iMemory .= " GB";
+					
+					//Get the Hard Drive
+					$iDriveLine = Search_File("Capacity:",$aMainLines);
+					unset($Matches);
+					preg_match("/Capacity: (.*)/",$aMainLines[$iDriveLine], $aMatches);
+					$iHardDrive = $aMatches[1];
+					$iHardDrive = substr($iHardDrive,0,9);
+					
+					$iSerNumLine = Search_File("Serial Number ",$aMainLines);
+					unset($aMatches);
+					preg_match("/Serial Number (.*)/", $aMainLines[$iSerNumLine], $aMatches);
+					$strSerNum = $aMatches[1];
+					$strSerNum = substr($strSerNum,10);
+					$strSerNum = trim($strSerNum);
+
+					$iSpeedLine = Search_File("Processor Speed:",$aMainLines);
+					unset($Matches);
+					preg_match("/Processor Speed: (.*)/",$aMainLines[$iSpeedLine], $aMatches);
+					$strProcSpeed = $aMatches[1];
+
+					$iJavaLine = Search_File("java version",$aMainLines);
+					unset($Matches);
+					preg_match("/java version (.*)/",$aMainLines[$iJavaLine], $aMatches);
+					$strJavaVer = $aMatches[1];
+					$strJavaVer = trim($strJavaVer,'"');
+
+					$iModel = Search_File("Model Name:",$aMainLines);
+					unset($Matches);
+					preg_match("/Model Name: (.*)/",$aMainLines[$iModel], $aMatches);
+					$strModel = $aMatches[1];
+
+					if (Meets_Service_Level($aComputerLevel))
+					{		
+						$aMeetsServiceLevels["OSX"] = "Yes";
+						$aMeetsServiceLevels["YosCompatible"] = "Yes";
+					}
+					else
+					{
+						$aMeetsServiceLevels["OSX"] = "No";
+						$aMeetsServiceLevels["YosCompatible"] = "No";
+					}
 				}
+				
+				// $strProcessor = trim($strProcessor);
+				// $aComputerLevel["Processor"] = $strProcessor;
+				
+				// if (Meets_Service_Level($aServiceLevels["OSX"],$aComputerLevel))
+				
 
 				
 				//Check if duplicate record exists by ComputerName, Domain and current year
@@ -932,48 +466,46 @@ if (file_exists($strTempFile))
 				if ($LastId != 0)
 				{ //If not 0 then a duplicate exists
 				  //To conflict resolution with love
-					echo "<html>";
-					echo "<head><title>Redirecting to Conflict Resolution</title></head>";
+					echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+					echo "<html xmlns=\"http://www.w3.org/1999/xhtml\">";
+					echo "<head>";
+					echo "<meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\" />";
+					echo "<title>Desktop Review</title>";
+					echo "<style type=\"text/css\" media=\"screen, print\">";
+					echo "@import url(./css/pstyle.css);";
+					echo "</style>";
+					echo "</head>";
 					echo "<body>";
-					echo "<form action='ConflictResolution.php' method='post' name='ConflictResolutionForm'>";
-					echo "<input type='hidden' name='FName' value='" . $strFName . "'>";
-					echo "<input type='hidden' name='LName' value='" . $strLName . "'>";
-					echo "<input type='hidden' name='Department' value='" . $strDepartmentName . "'>";
-					echo "<input type='hidden' name='Location' value='" . $strLocationName . "'>";
-					echo "<input type='hidden' name='WindowsVersion' value='" . $strOS . "'>";
-					echo "<input type='hidden' name='Location' value='" . $strLocationName . "'>";
-					echo "<input type='hidden' name='MeetsSLA' value='" . $aMeetsServiceLevel["Mac 2009"] . "'>";
-					
-					//Dustin - Removing because unnecessary 
-					// echo "<input type='hidden' name='Install' value='" . $strInstall . "'>";
-					// echo "<input type='hidden' name='Notes' value='" . $strNotes . "'>";
-					// echo "<input type='hidden' name='WindowsUpdate' value='Yes'>";
-					// echo "<input type='hidden' name='AutomaticUpdates' value='Yes'>";
-					// echo "<input type='hidden' name='VirusDefinitions' value='Yes'>";
-					// echo "<input type='hidden' name='SpywareScan' value='" . $strSav ."'>";
-
-
-					echo "<input type='hidden' name='Tech' value='" . $strTech . "'>";
-					echo "<input type='hidden' name='ComputerName' value='" . urlencode($strComputerName) . "'>";
-					echo "<input type='hidden' name='Domain' value='" . $strDomain . "'>";
-					echo "<input type='hidden' name='LionCompatible' value='" . $aMeetsServiceLevel["LionCompatible"] . "'>";
-					echo "<input type='hidden' name='OST' value='MAC'>"; //Pass OS Type to conflict resolution
-					echo "<input type=\"submit\" value=\"If you see this something bad happened. Press me please\"/>"; //if auto submission fails
-					echo "</form>";
-					echo "<script language=\"JavaScript\">";
-					echo "document.ConflictResolutionForm.submit();"; //make the form submit itself
-					echo "</script>";
+					echo "<table class=\"MainForm\" >";
+					echo "<tr><td  colspan=\"2\"><p style=\"text-align:right;float:right;\"><span class=\"BoldTitle\">OU Helpdesk</span><br />202 Kresge Library<br />Phone: 248-370-4357 Fax: 248-370-4209</p></td></tr>";
+					echo "<tr><td  colspan=\"2\" class=\"SmallTitle\" >". date("Y") . " Mac Review Audit</td></tr>";
+					echo "<tr><td class=\"FormHeader\" colspan=\"2\">EMPLOYEE NAME</td></tr>";
+					echo "<tr><td>Employee Name: " . $strEmployeeName . "</td><td>Department: " . $strDepartmentName . "</td></tr>";
+					echo "<tr><td>Computer Name: " . $strComputerName . "</td><td>Location: " . $strLocationName . "</td></tr>";
+					echo "<tr><td class=\"FormHeader\" colspan=\"2\">AUDIT CHECKLIST</td></tr>";
+					echo "<tr><td>OSX Version:</td><td class=\"SmallTitleCenter\">" . $strOS . "</td></tr>";
+					echo "<tr><td>Memory:</td><td class=\"SmallTitleCenter\">" . $strMemory . "</td></tr>";
+					echo "<tr><td>Capacity:</td><td class=\"SmallTitleCenter\">" . $strHDD . "</td></tr>";
+					echo "<tr><td>Processor:</td><td class=\"SmallTitleCenter\">" . $strProcessor . "</td></tr>";
+					echo "<tr><td>Java Version:</td><td class=\"SmallTitleCenter\">" . $strJavaVer . "</td></tr>";
+					echo "<tr><td>Serial Number:</td><td class=\"SmallTitleCenter\">" . $strSerNum . "</td></tr>";
+					echo "<tr><td>Does This Computer Meet Mac Service Level</td><td class=\"SmallTitleCenter\">" . $SLA . "</td></tr>";
+					echo "<tr><td>Is This Computer Yosemite(OSX 10.10) Compatible</td><td class=\"SmallTitleCenter\">" . $YosCompatible . "</td></tr>";
+					echo "<tr><td class=\"FormHeader\" colspan=\"2\">PC Information</td></tr>";
+					echo "<tr><td>Technician Signature: __________________________</td><td>Date Completed: <span class=\"SmallTitleCenter\" >" . date("F d Y") . "</span></td></tr>";
+					echo "</table>";
 					echo "</body>";
 					echo "</html>";
 					exit(); //prevent further execution of this script
 				}
-				//Dustin - Updated
-				// DispFormMac($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strOS, $aMeetsServiceLevel["Mac 2009"], $strInstall, $strNotes, $strSav, $aMeetsServiceLevel["LionCompatible"]);
-				// SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, "None", $strOS, "Yes", "Yes", $strSav , "No","N/A", $strInstall, $aMeetsServiceLevel["Mac 2009"], "N/A", "N/A", $strNotes, $strTech, $aMeetsServiceLevel["LionCompatible"], "N/A", "N/A", "N/A", "N/A", "N/A", "N/A");
+				
 
-				DispFormMac($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strOS, $aMeetsServiceLevel["Mac 2009"], $strInstall, $strSav, $aMeetsServiceLevel["LionCompatible"]);
+				//Dustin - Combining processor and speed
+				$strProcessor .= " " . $strProcSpeed;
 
-				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, "None", $strOS, $OSXVer, "N/A", "N/A","N/A", $aMeetsServiceLevel["Mac 2009"], "N/A", "N/A", $strTech, $aMeetsServiceLevel["LionCompatible"], $strProcessor, $iHardDrive, $iMemory, "N/A");
+				DispFormMac($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strOS, $iMemory, $iHardDrive, $strProcessor, $strJavaVer, $strSerNum, $aMeetsServiceLevels["YosCompatible"], $aMeetsServiceLevels["OSX"]);
+
+				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, "None", $strOS, "Apple", $strSerNum, $strModel, $strJavaVer, $aMeetsServiceLevels["OSX"], "N/A", "N/A", $strTech , $aMeetsServiceLevels["YosCompatible"], $strProcessor, $iHardDrive, $iMemory, "N/A");
 		}
 	}
 }
@@ -981,6 +513,7 @@ else
 {	
 	header('Location: ./errors/Error_NoFileAttached.html');
 }
+
 
 function Search_File($strSearchTerm,$aLines)
 {
@@ -1009,7 +542,7 @@ function Search_File($strSearchTerm,$aLines)
 
 function Meets_Service_Level($slaDoc,$findMe)
 {
-	$processorArray = array("AMD A4","AMD A6","AMD A8","AMD A10","Core(TM)2","Core(TM)2 Quad","Pentium(R) 4","Pentium(R) D","Pentium®","Core(TM) i3","Core(TM) i5","Core(TM) i7","Pentium(R) Dual","Turion(tm) 64","AMD Phenom(tm)","Intel Xeon","Atom(TM)","Sempron(tm)","Athlon(tm) 64","Athlon(tm) 64 Dual Core","Athlon(tm) Dual Core","Pentium(R) M","Turion(tm) X2","Turion(tm) 64 X2", "Celeron(R)", "Athlon(tm) II","Intel(R) Xeon(R)", "Core 2");
+	$processorArray = array("AMD A4","AMD A6","AMD A8","AMD A10","Core(TM)2","Core(TM)2 Quad","Pentium(R) 4","Pentium(R) D","Pentium®","Core(TM) i3","Core(TM) i5","Core(TM) i7","Pentium(R) Dual","Turion(tm) 64","AMD Phenom(tm)","Intel Xeon","Atom(TM)","Sempron(tm)","Athlon(tm) 64","Athlon(tm) 64 Dual Core","Athlon(tm) Dual Core","Pentium(R) M","Turion(tm) X2","Turion(tm) 64 X2", "Celeron(R)", "Athlon(tm) II","Intel(R) Xeon(R)", "Core 2","Intel Core i3","Intel Core i5","Intel Core i7","Intel Core 2 Duo","Intel Xeon");
 
 	foreach ($processorArray as $value)
 	{
