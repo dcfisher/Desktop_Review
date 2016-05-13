@@ -71,28 +71,6 @@ unset($aComputerLevel);
 unset($aServiceLevels);
 unset($aMeetsServiceLevels);
 
-// $strCurrentLevel = "";
-// //Open up the Service Level File are load in its properties
-// $aServiceLevelFiles = file("ServiceLevels.txt");
-// foreach ($aServiceLevelFiles as $iLine => $strLine)
-// {
-// 	if (substr($strLine,0,3) == "***")  //This is the heading of a Service Level Section
-// 	{
-// 		unset($aMatch);
-// 		preg_match("/\*\*\*(.*)\*\*\*/",$strLine,$aMatch);
-// 		$strCurrentLevel = $aMatch[1];
-// 	}
-// 	else  //Otherwise this is a service level item
-// 	{
-// 		if (strlen(trim($strLine)) > 0) //Don't worry about blank lines
-// 		{
-// 			//split the item by the =>
-// 			$aParts = explode('=>',$strLine);
-// 			$aServiceLevels[$strCurrentLevel][trim($aParts[0])]  = trim($aParts[1]);	
-// 		}
-// 	}
-// }
-
 if (file_exists($strTempFile))
 {
 	if (move_uploaded_file($strTempFile, $flFile))
@@ -119,7 +97,6 @@ if (file_exists($strTempFile))
 		{
 			$iFileType = 1;
 		}
-		
 		if (stripos($aMainLines[0], "Mac OS X") != FALSE)
 		{
 			$iFileType = 2;
@@ -309,8 +286,8 @@ if (file_exists($strTempFile))
 				if (strripos($aMainLines[0],"10.11") || strripos($aMainLines[0],"10.10") || strripos($aMainLines[0],"10.9") || strripos($aMainLines[0],"10.8") || strripos($aMainLines[0],"10.7") || strripos($aMainLines[0],"10.6")) //Fun with Yosemite
 				{
 
-					$VerIndex = strripos($aMainLines[0],"10.");
-					$strOS = substr($aMainLines[0], $VerIndex - 3, 7);
+					$VerIndex = strpos($aMainLines[0],"10.");
+					$strOS = substr($aMainLines[0], $VerIndex, 7);
 					$strOS = trim($strOS);
 					
 					//Get the Processor
@@ -407,38 +384,28 @@ if (file_exists($strTempFile))
 				//echo $LastId;
 				if ($LastId != 0)
 				{ //If not 0 then a duplicate exists
-				  //To conflict resolution with love
-					echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
-					echo "<html xmlns=\"http://www.w3.org/1999/xhtml\">";
-					echo "<head>";
-					echo "<meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\" />";
-					echo "<title>Desktop Review</title>";
-					echo "<style type=\"text/css\" media=\"screen, print\">";
-					echo "@import url(./css/pstyle.css);";
-					echo "</style>";
-					echo "</head>";
-					echo "<body>";
-					echo "<table class=\"MainForm\" >";
-					echo "<tr><td  colspan=\"2\"><p style=\"text-align:right;float:right;\"><span class=\"BoldTitle\">OU Helpdesk</span><br />202 Kresge Library<br />Phone: 248-370-4357 Fax: 248-370-4209</p></td></tr>";
-					echo "<tr><td  colspan=\"2\" class=\"SmallTitle\" >". date("Y") . " Mac Review Audit</td></tr>";
-					echo "<tr><td class=\"FormHeader\" colspan=\"2\">EMPLOYEE NAME</td></tr>";
-					echo "<tr><td>Employee Name: " . $strEmployeeName . "</td><td>Department: " . $strDepartmentName . "</td></tr>";
-					echo "<tr><td>Computer Name: " . $strComputerName . "</td><td>Location: " . $strLocationName . "</td></tr>";
-					echo "<tr><td class=\"FormHeader\" colspan=\"2\">AUDIT CHECKLIST</td></tr>";
-					echo "<tr><td>OSX Version:</td><td class=\"SmallTitleCenter\">" . $strOS . "</td></tr>";
-					echo "<tr><td>Memory:</td><td class=\"SmallTitleCenter\">" . $strMemory . "</td></tr>";
-					echo "<tr><td>Capacity:</td><td class=\"SmallTitleCenter\">" . $strHDD . "</td></tr>";
-					echo "<tr><td>Processor:</td><td class=\"SmallTitleCenter\">" . $strProcessor . "</td></tr>";
-					echo "<tr><td>Java Version:</td><td class=\"SmallTitleCenter\">" . $strJavaVersion . "</td></tr>";
-					echo "<tr><td>Serial Number:</td><td class=\"SmallTitleCenter\">" . $strSerialNumber . "</td></tr>";
-					echo "<tr><td>Does This Computer Meet Mac Service Level</td><td class=\"SmallTitleCenter\">" . $SLA . "</td></tr>";
-					echo "<tr><td>Is This Computer Yosemite(OSX 10.10) Compatible</td><td class=\"SmallTitleCenter\">" . $YosCompatible . "</td></tr>";
-					echo "<tr><td class=\"FormHeader\" colspan=\"2\">PC Information</td></tr>";
-					echo "<tr><td>Technician Signature: __________________________</td><td>Date Completed: <span class=\"SmallTitleCenter\" >" . date("F d Y") . "</span></td></tr>";
-					echo "</table>";
-					echo "</body>";
-					echo "</html>";
-					exit(); //prevent further execution of this script
+				  		echo "<html>";
+						echo "<head><title>Redirecting to Conflict Resolution</title></head>";
+						echo "<body>";
+						echo "<form action='ConflictResolution.php' method='post' name='ConflictResolutionForm'>";
+						echo "<input type='hidden' name='FName' value='" . $strFName . "'>";
+						echo "<input type='hidden' name='LName' value='" . $strLName . "'>";
+						echo "<input type='hidden' name='Department' value='" . $strDepartmentName . "'>";
+						echo "<input type='hidden' name='Location' value='" . $strLocationName . "'>";
+						echo "<input type='hidden' name='WindowsVersion' value='" . $strWindows . "'>";
+						echo "<input type='hidden' name='Location' value='" . $strLocationName . "'>";
+						echo "<input type='hidden' name='MeetsSLA' value='" . $aMeetsServiceLevel["Service Level"] . "'>";
+						echo "<input type='hidden' name='Tech' value='" . $strTech . "'>";
+						echo "<input type='hidden' name='ComputerName' value='" . $strComputerName . "'>";
+						echo "<input type='hidden' name='OST' value='WIN'>"; //Pass OS Type to conflict resolution for use with form generation
+						echo "<input type=\"submit\" value=\"If you see this something bad happened. Press me please\"/>"; //if auto submission fails
+						echo "</form>";
+						echo "<script language=\"JavaScript\">"; 
+						echo "document.ConflictResolutionForm.submit();"; //make the form submit itself
+						echo "</script>";
+						echo "</body>";
+						echo "</html>";
+						exit(); //prevent further execution of this script
 				}
 				
 

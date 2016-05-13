@@ -66,10 +66,6 @@ function DispFormMac($strEmployeeName, $strDepartmentName, $strComputerName, $st
 	echo "<tr><td>Processor:</td><td class=\"SmallTitleCenter\">" . $strProcessor . "</td></tr>";
 	echo "<tr><td>Java Version:</td><td class=\"SmallTitleCenter\">" . $strJavaVer . "</td></tr>";
 	echo "<tr><td>Serial Number:</td><td class=\"SmallTitleCenter\">" . $strSerNum . "</td></tr>";
-	echo "<tr><td>Did it go into the function?</td><td class=\"SmallTitleCenter\">" . $boolFuncCall . "</td></tr>";
-	echo "<tr><td>Here is the damn processor:</td><td class=\"SmallTitleCenter\">" . $aComputerLevel . "</td></tr>";
-	echo "<tr><td>Went to the if statement</td><td class=\"SmallTitleCenter\">" . $ifCheckTrue . "</td></tr>";
-	echo "<tr><td>Went to the else statement</td><td class=\"SmallTitleCenter\">" . $ifCheckElse . "</td></tr>";
 	echo "<tr><td>Does This Computer Meet Mac Service Level</td><td class=\"SmallTitleCenter\">" . $SLA . "</td></tr>";
 	echo "<tr><td>Is This Computer Yosemite(OSX 10.10) Compatible</td><td class=\"SmallTitleCenter\">" . $YosCompatible . "</td></tr>";
 	echo "<tr><td class=\"FormHeader\" colspan=\"2\">PC Information</td></tr>";
