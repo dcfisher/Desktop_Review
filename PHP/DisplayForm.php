@@ -14,7 +14,7 @@ function DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $st
 	echo "<body>";
 	echo "<table class=\"MainForm\" >";
 	echo "<tr><td  colspan=\"2\"><p style=\"text-align:right;float:right;\"><span class=\"BoldTitle\">OU Helpdesk</span><br />202 Kresge Library<br />Phone: 248-370-4357 Fax: 248-370-4209</p></td></tr>";
-	echo "<tr><td  colspan=\"2\" class=\"SmallTitle\" >" . date("Y") . " Desktop Review Audit</td></tr>";
+	echo "<tr><td  colspan=\"2\" class=\"SmallTitle\" >" . date("F d Y") . " Desktop Review Audit</td></tr>";
 	echo "<tr><td class=\"FormHeader\" colspan=\"2\">EMPLOYEE NAME</td></tr>";
 	echo "<tr><td>Employee Name: " . $strEmployeeName . "</td><td>Department: " . $strDepartmentName . "</td></tr>";
 	echo "<tr><td>Computer Name: " . $strComputerName . "</td><td>Location: " . $strLocationName . "</td></tr>";

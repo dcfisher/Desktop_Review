@@ -49,7 +49,7 @@ function SaveRecordInDB($strFName, $strLName, $strDepartment, $strComputerName, 
 		$LionCompatible = "No";
 	}
 	
-	//code for the SQL Query for the insertion of the record
+	// Dustin - Basic SQL record insertion
 	$sqlInsertRecord = "insert into ReviewData(FName, LName, Department, ComputerName, Location, Domain, WindowsVersion, Manufacturer, SerialNumber, Model, JavaVersion, MeetServiceLevel, WindowsCompatible, OfficeCompatible, Tech, DateCompleted, ReviewYear, LionCompatible, Processor, HardDrives, RamSize, OfficeMatch)";
 
 	$sqlInsertRecord .= " values('" . $strFName . "','" . $strLName . "','" . $strDepartment ."','" . mysql_real_escape_string($strComputerName) . "','" . $strLocation . "','" . $strDomain . "','" . $strWindowsVersion . "','" . $strManufacturer .  "','" . $strSerialNumber . "','" . $strModel . "','" . $strJavaVersion . "','"  . $strMeetServiceLevel . "','" . $strWindowsCompatible . "','" . $strOfficeCompatible . "','" .  $strTech  .  "','" . $timestamp . "','" . date("Y") . "','" . $LionCompatible . "','" . $Processor . "','" . $HardDrive . "','"  . $RAM . "','"  . $OfficeMatch ."')";

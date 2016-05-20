@@ -40,7 +40,8 @@ $strTempFile = $_FILES['frmDataFile']['tmp_name'];
 $flFile = "tmpfiles/review_" . time() . "_" . $strLocationName . ".txt";
 $iFileType = 0;
 
-
+// Dustin - these variables store the line numbers used below. They will probably disappear
+// when I change how we gather info
 $iProcessorLine = -1;
 $iHardDriveLine = -1;
 $strRAMLine = -1;
@@ -50,6 +51,7 @@ $iModel = -1;
 $iJavaVersion = -1;
 $iOfficeMatch = -1;
 
+// Dustin - Variables for what we actually want
 $boolMemCheck = false;
 $strProcSpeed = "None";
 $iSpeedLine = -1;
@@ -115,7 +117,9 @@ if (file_exists($strTempFile))
 					$strDomain = "ADMNET";
 				}
 
-				//Lets get the name, SerialNumber, Manufacturer, Model, System Type
+				// Dustin - Okay, not my favorite way to do this and I will look at changing it but for now 
+				// this block searches through the review.txt and finds which line the search term is on.
+				// For example $iNameLine holds the line number where "System Name:" is located.
 				$iNameLine = Search_File("System Name:", $aMainLines);
 				$iSerialNumber = Search_File("Serial Number:", $aMainLines);
 				$iManucfacturer = Search_File("System Manufacturer:",$aMainLines);
@@ -127,6 +131,9 @@ if (file_exists($strTempFile))
 				$iJavaVersion = Search_File("Java Version:", $aMainLines);
 				$aComputerLevel['Processor'] = $aMainLines[$iProcessorLine];
 
+				// Dustin - Here pregmatch is used to search the line number found above and finds the search term
+				// then divides what's left on the line into an array. So "system Name: " is found on the line
+				// found above and enters it into cell 0 then puts the rest of the line in cell 1. 
 				unset($aMatches);
 				preg_match("/System Name: (.*)/",$aMainLines[$iNameLine],$aMatches);
 				$strComputerName = $aMatches[1];
@@ -169,7 +176,9 @@ if (file_exists($strTempFile))
 				}
 					
 
-				//Look for the Type of Windows
+				// Dustin - This uses the line searching method to find if the search term even
+				// exists and if it does then the search term exists it sets the windows version
+				// variable. I hate this section and I will make it better later
 				if (Search_File("Version 10.0", $aMainLines) != -1)
 				{
 					$strWindows = "10";
@@ -214,7 +223,8 @@ if (file_exists($strTempFile))
 					$strWindows = "XP";
 				}
 				
-				//Run the three Checks
+				// Dustin - This section uses our NEW and less stupid method to check the processor
+				// against a list of accepted processors to ensure the PC meets the SLA
 				if (Meets_Service_Level($aComputerLevel))
 				{
 					$aMeetsServiceLevel["Service Level"] = "Yes";
@@ -233,9 +243,9 @@ if (file_exists($strTempFile))
 				$strLocationName = trim($strLocationName);
 				$strDomain = trim($strDomain);
 				
-				//Check if duplicate record exists by ComputerName, Domain and Current Year
+				// Check if duplicate record exists by computername, review date, first name, last name and location. 
 				$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . addslashes($strComputerName) . "' AND ReviewYear='" . date("Y") ."' AND FName='" . $strFName . "' AND LName='" . $strLName . "' AND Location='" . $strLocationName . "'";
-				//echo $query_string . "<br>";
+				
 				$query = mysql_query($query_string);	
 				//This will stay '0' if nothing matches as ReviewId should never be 0.
 				$LastId=0;
@@ -279,7 +289,8 @@ if (file_exists($strTempFile))
 					}
 				}
 
-				//And now for something completely different. Lets make a web page!
+				// Dustin - these two method calls send the various data to the display form and saves them in the database
+				// I really hate this and it seems sort of pointless to have them in separate files and I'll probably change it
 				DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strModel, $strSerialNumber, $strRAM, $strHDD, $strOfficeMatch, $strProcessor, $strJavaVersion, $aMeetsServiceLevel["Service Level"], $aMeetsServiceLevel["Win10"], $aMeetsServiceLevel["Office 2016"]);
 				
 				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strWindows, $strManufacturer, $strSerialNumber, $strModel, $strJavaVersion, $aMeetsServiceLevel["Service Level"],$aMeetsServiceLevel["Win10"], $aMeetsServiceLevel["Office 2016"], $strTech, "N/A", $strProcessor, $strHDD, $strRAM, $strOfficeMatch);
@@ -289,18 +300,20 @@ if (file_exists($strTempFile))
 				//Which Type of OS X are we dealing with...It seems that each version outputs a different file
 				if (strripos($aMainLines[0],"10.11") || strripos($aMainLines[0],"10.10") || strripos($aMainLines[0],"10.9") || strripos($aMainLines[0],"10.8") || strripos($aMainLines[0],"10.7") || strripos($aMainLines[0],"10.6")) //Fun with Yosemite
 				{
-
+					// Dustin - Here the Mac version is found and the variable is created... just look up
+					// substring because I'm not going to explain something like this, it would just take too long
 					$VerIndex = strpos($aMainLines[0],"10.");
 					$strOS = substr($aMainLines[0], $VerIndex, 7);
 					$strOS = trim($strOS);
 					
-					//Get the Processor
+					// Dustin - Same as the PC side, just review the doc and get the line numbers then use
+					// pregmatch to get the data. Just different because the scripts output different
+					// names than the PC scripts. 
 					$iProcessorLine = Search_File("Processor Name:", $aMainLines);
 					unset($aMatches);
 					preg_match("/Processor Name: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
 					$strProcessor = $aMatches[1];
 					
-					//Check for a Computer Name
 					$iNameLine  = Search_File("Computer Name:" , $aMainLines);
 					unset($aMatches);
 					if ($iNameLine > 0)
@@ -309,7 +322,6 @@ if (file_exists($strTempFile))
 						$strComputerName = $aMatches[1];
 					}
 					
-					//Check for Ram Size
 					$strRAMLine = Search_File("Memory:", $aMainLines);
 					unset($aMatches);
 					preg_match("/Memory: ([0-9]+).*(GB|MB)/", $aMainLines[$strRAMLine], $aMatches);
@@ -321,7 +333,6 @@ if (file_exists($strTempFile))
 					}
 					$strRAM .= " GB";
 					
-					//Get the Hard Drive
 					$iDriveLine = Search_File("Capacity:",$aMainLines);
 					unset($Matches);
 					preg_match("/Capacity: (.*)/",$aMainLines[$iDriveLine], $aMatches);
@@ -343,6 +354,7 @@ if (file_exists($strTempFile))
 					$iJavaVersion = Search_File("java version",$aMainLines);
 					unset($Matches);
 					preg_match("/java version (.*)/",$aMainLines[$iJavaVersion], $aMatches);
+
 					if (isset($aMatches[1]) 
 					{
 						$strJavaVersion = $aMatches[1];
@@ -357,6 +369,7 @@ if (file_exists($strTempFile))
 					$strProcessor = $strProcSpeed . " " . $strProcessor;
 					$aComputerLevel['Processor'] = $strProcessor;
 
+					// Dustin - Checks the SLA same as the PC side
 					if (Meets_Service_Level($aComputerLevel))
 					{		
 						$aMeetsServiceLevels["OSX"] = "Yes";
@@ -368,7 +381,6 @@ if (file_exists($strTempFile))
 						$aMeetsServiceLevels["YosCompatible"] = "No";
 					}
 				}
-				
 				//Check if duplicate record exists by ComputerName, Domain and current year
 				$strComputerName = trim($strComputerName);
 				$strLocationName = trim($strLocationName);
@@ -379,7 +391,10 @@ if (file_exists($strTempFile))
 					header('Location: ./errors/Error_Unsupported.html');
 					exit();
 				}
-			
+				
+				// Check if duplicate record exists by computername, review date, first name, last name and location. 
+				// everything below here is freaking redundant and I will fix later. I don't know why he redid so much
+				// code but our only goal was to make it work. 
 				$query_string = "SELECT ReviewId FROM ReviewData WHERE ComputerName='" . addslashes($strComputerName) . "' AND ReviewYear='" . date("Y") ."' AND FName='" . $strFName . "' AND LName='" . $strLName . "' AND Location='" . $strLocationName . "'";
 				$query = mysql_query($query_string);	
 				//This will stay '0' if nothing matches as ReviewId should never be 0.
@@ -401,7 +416,6 @@ if (file_exists($strTempFile))
 						echo "<input type='hidden' name='Location' value='" . $strLocationName . "'>";
 						echo "<input type='hidden' name='WindowsVersion' value='" . $strWindows . "'>";
 						echo "<input type='hidden' name='Location' value='" . $strLocationName . "'>";
-						echo "<input type='hidden' name='MeetsSLA' value='" . $aMeetsServiceLevel["Service Level"] . "'>";
 						echo "<input type='hidden' name='Tech' value='" . $strTech . "'>";
 						echo "<input type='hidden' name='ComputerName' value='" . $strComputerName . "'>";
 						echo "<input type='hidden' name='OST' value='WIN'>"; //Pass OS Type to conflict resolution for use with form generation
@@ -415,7 +429,8 @@ if (file_exists($strTempFile))
 						exit(); //prevent further execution of this script
 				}
 				
-
+				// Dustin - these two method calls send the various data to the display form and saves them in the database
+				// I really hate this and it seems sort of pointless to have them in separate files and I'll probably change it
 				DispFormMac($strEmployeeName, $strDepartmentName, $strComputerName, $strLocationName, $strDomain, $strOS, $strRAM, $strHDD, $strProcessor, $strJavaVersion, $strSerialNumber, $aMeetsServiceLevels["YosCompatible"], $aMeetsServiceLevels["OSX"]);
 
 				SaveRecordInDB($strFName, $strLName, $strDepartmentName, $strComputerName, $strLocationName, "None", $strOS, "Apple", $strSerialNumber, $strModel, $strJavaVersion, $aMeetsServiceLevels["OSX"], "N/A", "N/A", $strTech , $aMeetsServiceLevels["YosCompatible"], $strProcessor, $strHDD, $strRAM, "N/A");
@@ -427,6 +442,10 @@ else
 	header('Location: ./errors/Error_NoFileAttached.html');
 }
 
+
+// Dustin - This function searches the passed txt file (review.txt) and finds the search
+// term and returns the line number. Probably will be made useless when I change how the
+// fields are populated later. 
 function Search_File($strSearchTerm,$aLines)
 {
 	$iTermRow = -1;
@@ -448,6 +467,7 @@ function Search_File($strSearchTerm,$aLines)
 	}
 	return $iTermRow;
 }
+// Dustin - This function checks the processor against a list of accepted ones and returns true or false
 function Meets_Service_Level($findMe)
 {
 	$processorArray = array("AMD A4","AMD A6","AMD A8","AMD A10","Core(TM)2","Core(TM)2 Quad","Pentium(R) 4","Pentium(R) D","Pentium®","Core(TM) i3","Core(TM) i5","Core(TM) i7","Pentium(R) Dual","Turion(tm) 64","AMD Phenom(tm)","Intel Xeon","Atom(TM)","Sempron(tm)","Athlon(tm) 64","Athlon(tm) 64 Dual Core","Athlon(tm) Dual Core","Pentium(R) M","Turion(tm) X2","Turion(tm) 64 X2", "Celeron(R)", "Athlon(tm) II","Intel(R) Xeon(R)", "Core 2","Intel Core i3","Intel Core i5","Intel Core i7","Intel Core 2 Duo","Intel Xeon");
@@ -459,14 +479,5 @@ function Meets_Service_Level($findMe)
 		}
 	}
 	return false;
-}
-function CleanUpNotes($strNotes)
-{
-	//replace the different types of line breaks
-	$strNotes = preg_replace('/\\r\\n/','<br />',$strNotes);
-	
-	$strNotes = preg_replace('/\\n/','<br />', $strNotes);
-	
-	return $strNotes;
 }
 ?> 
