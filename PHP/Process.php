@@ -79,23 +79,7 @@ if (file_exists($strTempFile))
 	{
 		$aMainLines = file($flFile);
 		//Check the First Line for OS Type
-		if (strripos($aMainLines[0], "10") != FALSE)
-		{
-			$iFileType = 1;
-		}
-		if (strripos($aMainLines[0], "8") != FALSE)
-		{
-			$iFileType = 1;
-		}	
-		if (strripos($aMainLines[0], "7") != FALSE)
-		{
-			$iFileType = 1;
-		}		
-		if (strripos($aMainLines[0], "Vista") != FALSE)
-		{
-			$iFileType = 1;
-		}
-		if (stripos($aMainLines[0], "XP") != FALSE)
+		if (Search_File("Windows", $aMainLines) != FALSE)
 		{
 			$iFileType = 1;
 		}
@@ -157,7 +141,9 @@ if (file_exists($strTempFile))
 				unset($aMatches);
 				preg_match("/Processor: (.*)/",$aMainLines[$iProcessorLine],$aMatches);
 				$strProcessor = $aMatches[1];
+				$strProcessor = " " . $strProcessor;
 				$aComputerLevel['Processor'] = $strProcessor;
+
 
 				unset($aMatches);
 				preg_match("/HDD: (.*)/",$aMainLines[$iHardDriveLine],$aMatches);
@@ -170,7 +156,7 @@ if (file_exists($strTempFile))
 
 				unset($aMatches);
 				preg_match("/Java Version: (.*)/",$aMainLines[$iJavaVersion],$aMatches);
-				if (isset($aMatches[1]) 
+				if (isset($aMatches[1]))
 				{
 					$strJavaVersion = $aMatches[1];
 				}
@@ -239,6 +225,7 @@ if (file_exists($strTempFile))
 				}
 
 				//sometimes the variables have whitespace, this causes problems
+				$strProcessor = trim($strProcessor);
 				$strComputerName = trim($strComputerName);
 				$strLocationName = trim($strLocationName);
 				$strDomain = trim($strDomain);
@@ -339,7 +326,7 @@ if (file_exists($strTempFile))
 					$strHDD = $aMatches[1];
 					$strHDD = substr($strHDD,0,9);
 					
-					$iSerialNumber = Search_File("Serial Number ",$aMainLines);
+					$iSerialNumber = Search_File("Serial Number: ",$aMainLines);
 					unset($aMatches);
 					preg_match("/Serial Number (.*)/", $aMainLines[$iSerialNumber], $aMatches);
 					$strSerialNumber = $aMatches[1];
@@ -355,7 +342,7 @@ if (file_exists($strTempFile))
 					unset($Matches);
 					preg_match("/java version (.*)/",$aMainLines[$iJavaVersion], $aMatches);
 
-					if (isset($aMatches[1]) 
+					if (isset($aMatches[1]))
 					{
 						$strJavaVersion = $aMatches[1];
 					}
