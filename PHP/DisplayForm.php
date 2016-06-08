@@ -23,6 +23,7 @@ function DispFormWin($strEmployeeName, $strDepartmentName, $strComputerName, $st
 	echo "<tr><td>Windows Version: </td><td class=\"SmallTitleCenter\" >" . $strWindows . "</td></tr>";
 	echo "<tr><td>Manufacturer: </td><td class=\"SmallTitleCenter\" >" . $strManufacturer . "</td></tr>";
 	echo "<tr><td>Model: </td><td class=\"SmallTitleCenter\" >" . $strModel . "</td></tr>";
+	echo "<tr><td>Processor: </td><td class=\"SmallTitleCenter\" >" . $strProcessor . "</td></tr>";
 	echo "<tr><td>Serial Number: </td><td class=\"SmallTitleCenter\" >" . $strSerialNumber . "</td></tr>";
 	echo "<tr><td>Memory: </td><td class=\"SmallTitleCenter\" >" . $iMemory . "</td></tr>";
 	echo "<tr><td>Hard Drive: </td><td class=\"SmallTitleCenter\" >" . $strHDD . "</td></tr>";
